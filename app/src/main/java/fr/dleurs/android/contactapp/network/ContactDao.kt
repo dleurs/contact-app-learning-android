@@ -8,16 +8,16 @@ import retrofit2.http.GET
 
 private const val BASE_URL = "http://www.mocky.io/v2/5d63dcb93200007500ba1e43";
 
-private val moshi = Moshi.Builder()
-    .add(KotlinJsonAdapterFactory())
-    .build()
-
 interface ContactDao {
     @GET("")
     suspend fun getContacts(): List<Contact>
 }
 
 object ContactRetrofitApi {
+    private val moshi = Moshi.Builder()
+        .add(KotlinJsonAdapterFactory())
+        .build()
+
     private val retrofit = Retrofit.Builder()
         .addConverterFactory(MoshiConverterFactory.create(moshi))
         .baseUrl(BASE_URL)
