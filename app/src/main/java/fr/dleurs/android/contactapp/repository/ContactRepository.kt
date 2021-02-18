@@ -11,7 +11,7 @@ import kotlinx.coroutines.withContext
 import timber.log.Timber
 import fr.dleurs.android.contactapp.network.asDatabaseModel
 
-class VideosRepository(private val database: ContactsDatabase) {
+class ContactRepository(private val database: ContactsDatabase) {
 
     val contacts: LiveData<List<Contact>> = Transformations.map(database.contactDtbDao.getContacts()) {
         it.asDomainModel()
