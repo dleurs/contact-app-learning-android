@@ -2,27 +2,24 @@ package fr.dleurs.android.contactapp.database
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import fr.dleurs.android.contactapp.network.ContactNtw
+import fr.dleurs.android.contactapp.model.Contact
 
 @Entity(tableName = "contact_table")
-data class ContactDtb(
-        @PrimaryKey
+data class ContactDatabase(
+        @PrimaryKey(autoGenerate = true)
         val id: Int = 0,
         val firstName: String,
         val lastName: String,
         val mail: String
-
-) {
-    //constructor(name: String) : this(0, name);
-}
+)
 
 /**
  * Map DatabaseVideos to domain entities
  */
-fun List<ContactDtb>.asDomainModel(): List<ContactNtw> {
+fun List<ContactDatabase>.asDomainModel(): List<Contact> {
     return map {
-        ContactNtw(
-                id = it.id,
+        Contact(
+                id = it.id.toString(),
                 firstName = it.firstName,
                 lastName = it.lastName,
                 mail = it.mail,
