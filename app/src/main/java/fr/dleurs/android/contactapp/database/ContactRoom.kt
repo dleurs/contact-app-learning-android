@@ -17,17 +17,24 @@ interface ContactDtbDao {
     fun getContacts(): LiveData<List<ContactDatabase>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertAll(videos: List<ContactDatabase>)
+    fun insertAll(contacts: List<ContactDatabase>)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insert(contact: ContactDatabase)
+
+    @Query("DELETE FROM contact_table")
+    suspend fun deleteAll()
 }
 
 
 @Database(entities = [ContactDatabase::class], version = 1)
 abstract class ContactsDatabase : RoomDatabase() {
-    abstract val contactDtbDao: ContactDtbDao
+
+    abstract fun contactDtbDao(): ContactDtbDao
 
     companion object {
         @Volatile
-        private lateinit var INSTANCE: ContactsDatabase
+        private var INSTANCE: ContactsDatabase? = null
 
         fun getDatabase(context: Context, scope: CoroutineScope): ContactsDatabase {
             return INSTANCE ?: synchronized(this) {
@@ -59,22 +66,20 @@ abstract class ContactsDatabase : RoomDatabase() {
                 // comment out the following line.
                 INSTANCE?.let { database ->
                     scope.launch(Dispatchers.IO) {
-                        //populateDatabase(database.todoDao())
+                        populateDatabase(database.contactDtbDao())
                     }
                 }
             }
         }
 
-/*        suspend fun populateDatabase(contactDao: ContactDtbDaoDao) {
+        suspend fun populateDatabase(contactDao: ContactDtbDao) {
             // Start the app with a clean database every time.
             // Not needed if you only populate on creation.
-            todoDao.deleteAll()
+            contactDao.deleteAll()
 
-            var word = TodoRoom("Do sport")
-            todoDao.insert(word)
-            word = TodoRoom("Meditation")
-            todoDao.insert(word)
-        }*/
+            var word = ContactDatabase(firstName = "Dimitr", lastName = "Leurs", mail = "di@le.com")
+            contactDao.insert(word)
+        }
     }
 }
 

@@ -30,9 +30,9 @@ class MainActivity : AppCompatActivity() {
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(this)
 
-        contactViewModel.contacts.observe( this) { todos ->
+        contactViewModel.contacts.observe( this) { contacts ->
             // Update the cached copy of the words in the adapter.
-            todos.let { adapter.submitList(it) }
+            contacts.let { adapter.submitList(it) }
         }
 
         val fab = findViewById<FloatingActionButton>(R.id.fab)
