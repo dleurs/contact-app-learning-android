@@ -1,4 +1,4 @@
-package fr.dleurs.android.contactapp.ui
+package fr.dleurs.android.contactapp.viewmodel
 
 import android.app.Application
 import androidx.lifecycle.*

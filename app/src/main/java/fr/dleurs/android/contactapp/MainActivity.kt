@@ -1,21 +1,26 @@
 package fr.dleurs.android.contactapp
 
-import android.content.Intent
 import android.os.Bundle
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
-import android.view.Menu
-import android.view.MenuItem
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
+import fr.dleurs.android.contactapp.viewmodel.ContactViewModel
 
 class MainActivity : AppCompatActivity() {
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         val recyclerView = findViewById<RecyclerView>(R.id.recyclerview)
+
+        val viewModel: ContactViewModel by lazy {
+            ViewModelProvider(this, ContactViewModel.Factory(this.application))
+                    .get(ContactViewModel::class.java)
+        }
 
 
         val fab = findViewById<FloatingActionButton>(R.id.fab)
