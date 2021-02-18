@@ -15,8 +15,12 @@ import fr.dleurs.android.contactapp.viewmodel.ContactViewModel
 
 class MainActivity : AppCompatActivity() {
 
-    private val contactViewModel: ContactViewModel by viewModels {
-        ContactViewModelFactory(application as ContactsApplication)
+    private val contactViewModel: ContactViewModel by lazy {
+        val activity = requireNotNull(this) {
+            "You can only access the viewModel after onActivityCreated()"
+        }
+        ViewModelProvider(this, ContactViewModel.Factory(activity.application))
+            .get(ContactViewModel::class.java)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,15 +48,5 @@ class MainActivity : AppCompatActivity() {
             //val intent = Intent(this@MainActivity, NewWordActivity::class.java)
             //startActivityForResult(intent, createTodoActivityRequestCode)
         }
-    }
-}
-
-class ContactViewModelFactory(private val application: ContactsApplication) : ViewModelProvider.Factory {
-    override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(ContactViewModel::class.java)) {
-            @Suppress("UNCHECKED_CAST")
-            return ContactViewModel(application) as T
-        }
-        throw IllegalArgumentException("Unknown ViewModel class")
     }
 }
