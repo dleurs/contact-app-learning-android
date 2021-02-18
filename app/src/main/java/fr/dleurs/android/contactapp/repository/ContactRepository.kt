@@ -1,10 +1,7 @@
 package fr.dleurs.android.contactapp.repository
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Transformations
-import fr.dleurs.android.contactapp.model.Contact
-import fr.dleurs.android.contactapp.model.ContactRetrofitApi
+import fr.dleurs.android.contactapp.database.Contact
+import fr.dleurs.android.contactapp.database.ContactRetrofitApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import timber.log.Timber
