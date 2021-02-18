@@ -2,14 +2,14 @@ package fr.dleurs.android.contactapp.viewmodel
 
 import android.app.Application
 import androidx.lifecycle.*
-import fr.dleurs.android.contactapp.database.getDatabase
+import fr.dleurs.android.contactapp.database.ContactsDatabase
 import fr.dleurs.android.contactapp.repository.ContactRepository
 import kotlinx.coroutines.launch
 import java.io.IOException
 
-class ContactViewModel(application: Application) : AndroidViewModel(application) {
+class ContactViewModel(private val contactsRepository: ContactRepository ): ViewModel() {
 
-    private val contactsRepository = ContactRepository(getDatabase(application))
+    //private val contactsRepository = ContactRepository(ContactsDatabase.getDatabase(application))
 
     val contacts = contactsRepository.contacts
 
@@ -75,13 +75,23 @@ class ContactViewModel(application: Application) : AndroidViewModel(application)
     /**
      * Factory for constructing ContactViewModel with parameter
      */
-    class Factory(val app: Application) : ViewModelProvider.Factory {
+/*    class Factory(val app: Application) : ViewModelProvider.Factory {
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {
             if (modelClass.isAssignableFrom(ContactViewModel::class.java)) {
                 @Suppress("UNCHECKED_CAST")
-                return ContactViewModel(app) as T
+                return ContactViewModel() as T
             }
             throw IllegalArgumentException("Unable to construct viewmodel")
         }
+    }*/
+}
+
+class ContactViewModelFactory(private val repository: ContactRepository) : ViewModelProvider.Factory {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
+        if (modelClass.isAssignableFrom(ContactViewModel::class.java)) {
+            @Suppress("UNCHECKED_CAST")
+            return ContactViewModel(repository) as T
+        }
+        throw IllegalArgumentException("Unknown ViewModel class")
     }
 }

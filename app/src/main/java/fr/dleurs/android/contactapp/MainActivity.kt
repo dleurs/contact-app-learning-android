@@ -12,12 +12,14 @@ import fr.dleurs.android.contactapp.application.ContactsApplication
 import fr.dleurs.android.contactapp.repository.ContactRepository
 import fr.dleurs.android.contactapp.ui.ContactListAdapter
 import fr.dleurs.android.contactapp.viewmodel.ContactViewModel
+import fr.dleurs.android.contactapp.viewmodel.ContactViewModelFactory
 
 class MainActivity : AppCompatActivity() {
 
     private val contactViewModel: ContactViewModel by viewModels {
-        ContactViewModelFactory(application as ContactsApplication)
+        ContactViewModelFactory((application as ContactsApplication).repository)
     }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,26 +35,10 @@ class MainActivity : AppCompatActivity() {
             todos.let { adapter.submitList(it) }
         }
 
-        val viewModel: ContactViewModel by lazy {
-            ViewModelProvider(this, ContactViewModel.Factory(this.application))
-                    .get(ContactViewModel::class.java)
-        }
-
-
         val fab = findViewById<FloatingActionButton>(R.id.fab)
         fab.setOnClickListener {
             //val intent = Intent(this@MainActivity, NewWordActivity::class.java)
             //startActivityForResult(intent, createTodoActivityRequestCode)
         }
-    }
-}
-
-class ContactViewModelFactory(private val application: ContactsApplication) : ViewModelProvider.Factory {
-    override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(ContactViewModel::class.java)) {
-            @Suppress("UNCHECKED_CAST")
-            return ContactViewModel(application) as T
-        }
-        throw IllegalArgumentException("Unknown ViewModel class")
     }
 }
