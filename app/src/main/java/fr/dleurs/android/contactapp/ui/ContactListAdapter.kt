@@ -20,7 +20,6 @@ class ContactListAdapter() : ListAdapter<Contact, ContactListAdapter.ContactView
     override fun onBindViewHolder(holder: ContactViewHolder, position: Int) {
         val current = getItem(position)
         holder.bind(current)
-
     }
 
     class ContactViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
