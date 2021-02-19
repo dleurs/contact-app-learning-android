@@ -1,3 +1,4 @@
+/*
 package fr.dleurs.android.contactapp.ui
 
 import android.view.LayoutInflater
@@ -28,11 +29,13 @@ class ContactListAdapter() : ListAdapter<Contact, ContactListAdapter.ContactView
         var data: Contact? = null
 
         init {
+*/
 /*            deleteContact.setOnClickListener {
                 data?.let {
                     contactInterface.onItemClick(it)
                 }
-            }*/
+            }*//*
+
         }
 
         fun bind(item: Contact?) {
@@ -62,4 +65,4 @@ class ContactListAdapter() : ListAdapter<Contact, ContactListAdapter.ContactView
             }
         }
     }
-}
+}*/

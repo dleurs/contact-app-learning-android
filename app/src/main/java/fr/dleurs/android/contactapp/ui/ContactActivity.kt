@@ -1,20 +1,24 @@
-package fr.dleurs.android.contactapp
+package fr.dleurs.android.contactapp.ui
 
 import android.os.Bundle
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModel
-import androidx.activity.viewModels
-import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import fr.dleurs.android.contactapp.application.ContactsApplication
-import fr.dleurs.android.contactapp.repository.ContactRepository
-import fr.dleurs.android.contactapp.ui.ContactListAdapter
-import fr.dleurs.android.contactapp.viewmodel.ContactViewModel
-import fr.dleurs.android.contactapp.viewmodel.ContactViewModelFactory
+import fr.dleurs.android.contactapp.R
 
-class MainActivity : AppCompatActivity() {
+
+class ContactActivity : AppCompatActivity() {
+
+    /**
+     * Called when the activity is starting.  This is where most initialization
+     * should go
+     */
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+    }
+}
+
+
+/*class MainActivity : AppCompatActivity() {
 
     private val contactViewModel: ContactViewModel by viewModels {
         ContactViewModelFactory((application as ContactsApplication).repository)
@@ -37,8 +41,11 @@ class MainActivity : AppCompatActivity() {
 
         val fab = findViewById<FloatingActionButton>(R.id.fab)
         fab.setOnClickListener {
+            val newContact:ContactDatabase = ContactDatabase(firstName = "Dimitri", lastName = "Lele", mail = "dim@le.com")
+            contactViewModel.contacts
+            //todoViewModel.insert(TodoRoom(todoName))
             //val intent = Intent(this@MainActivity, NewWordActivity::class.java)
             //startActivityForResult(intent, createTodoActivityRequestCode)
         }
     }
-}
+}*/

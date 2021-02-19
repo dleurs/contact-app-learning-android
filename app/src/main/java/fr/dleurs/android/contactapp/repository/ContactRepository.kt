@@ -12,9 +12,9 @@ import kotlinx.coroutines.withContext
 import timber.log.Timber
 import fr.dleurs.android.contactapp.network.asDatabaseModel
 
-class ContactRepository(private val contactDtbDao: ContactDtbDao) {
+class ContactRepository(private val database: ContactsDatabase) {
 
-    val contacts: LiveData<List<Contact>> = Transformations.map(contactDtbDao.getContacts()) {
+    val contacts: LiveData<List<Contact>> = Transformations.map(database.contactDtbDao.getContacts()) {
         it.asDomainModel()
     }
 
@@ -22,7 +22,7 @@ class ContactRepository(private val contactDtbDao: ContactDtbDao) {
         withContext(Dispatchers.IO) {
             Timber.d("refresh contacts is called");
             val contactList = ContactRetrofitApi.contacts.getContacts()
-            contactDtbDao.insertAll(contactList.asDatabaseModel())
+            database.contactDtbDao.insertAll(contactList.asDatabaseModel())
         }
     }
 
