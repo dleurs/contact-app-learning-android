@@ -16,6 +16,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
 import fr.dleurs.android.contactapp.R
+import fr.dleurs.android.contactapp.databinding.ContactItemBinding
+import fr.dleurs.android.contactapp.databinding.FragmentContactBinding
 import fr.dleurs.android.contactapp.model.Contact
 import fr.dleurs.android.contactapp.viewmodel.ContactViewModel
 
@@ -74,30 +76,14 @@ class ContactFragment : Fragment() {
                               savedInstanceState: Bundle?): View? {
         val binding: FragmentContactBinding = DataBindingUtil.inflate(
             inflater,
-            R.layout.fragment_dev_byte,
+            R.layout.fragment_contact,
             container,
             false)
         // Set the lifecycleOwner so DataBinding can observe LiveData
         binding.setLifecycleOwner(viewLifecycleOwner)
 
-        binding.viewModel = viewModel
+        //binding.viewModel = viewModel
 
-        viewModelAdapter = DevByteAdapter(VideoClick {
-            // When a video is clicked this block or lambda will be called by DevByteAdapter
-
-            // context is not around, we can safely discard this click since the Fragment is no
-            // longer on the screen
-            val packageManager = context?.packageManager ?: return@VideoClick
-
-            // Try to generate a direct intent to the YouTube app
-            var intent = Intent(Intent.ACTION_VIEW, it.launchUri)
-            if(intent.resolveActivity(packageManager) == null) {
-                // YouTube app isn't found, use the web url
-                intent = Intent(Intent.ACTION_VIEW, Uri.parse(it.url))
-            }
-
-            startActivity(intent)
-        })
 
         binding.root.findViewById<RecyclerView>(R.id.recycler_view).apply {
             layoutManager = LinearLayoutManager(context)
@@ -151,10 +137,10 @@ class ContactAdapter() : RecyclerView.Adapter<ContactViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ContactViewHolder {
         val withDataBinding: ContactItemBinding = DataBindingUtil.inflate(
             LayoutInflater.from(parent.context),
-            DevByteViewHolder.LAYOUT,
+            ContactViewHolder.LAYOUT,
             parent,
             false)
-        return DevByteViewHolder(withDataBinding)
+        return ContactViewHolder(withDataBinding)
     }
 
     override fun getItemCount() = contacts.size
@@ -166,7 +152,7 @@ class ContactAdapter() : RecyclerView.Adapter<ContactViewHolder>() {
      */
     override fun onBindViewHolder(holder: ContactViewHolder, position: Int) {
         holder.viewDataBinding.also {
-            it.video = contacts[position]
+            it.contact = contacts[position]
         }
     }
 
