@@ -1,6 +1,7 @@
 package fr.dleurs.android.contactapp.viewmodel
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.*
 import fr.dleurs.android.contactapp.database.getDatabase
 import fr.dleurs.android.contactapp.repository.ContactRepository
@@ -64,6 +65,7 @@ class ContactViewModel(application: Application) : AndroidViewModel(application)
 
             } catch (networkError: IOException) {
                 // Show a Toast error message and hide the progress bar.
+                    Log.i("ContactViewModel", "Error on refreshContact : ${networkError.toString()}")
                 if(playlist.value.isNullOrEmpty())
                     _eventNetworkError.value = true
             }

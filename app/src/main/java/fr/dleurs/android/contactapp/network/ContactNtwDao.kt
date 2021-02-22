@@ -8,7 +8,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.GET
 
-private const val BASE_URL = "http://www.mocky.io/v2/5d63dcb93200007500ba1e43/";
+private const val BASE_URL = "https://www.mocky.io/v2/5d63dcb93200007500ba1e43/";
 
 interface ContactNtwDao {
     @GET(".")

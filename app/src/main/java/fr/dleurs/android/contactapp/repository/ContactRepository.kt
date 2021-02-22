@@ -1,5 +1,6 @@
 package fr.dleurs.android.contactapp.repository
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
 import fr.dleurs.android.contactapp.database.ContactDtbDao
@@ -11,6 +12,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import timber.log.Timber
 import fr.dleurs.android.contactapp.network.asDatabaseModel
+import java.util.logging.Level.INFO
 
 class ContactRepository(private val database: ContactsDatabase) {
 
@@ -20,8 +22,9 @@ class ContactRepository(private val database: ContactsDatabase) {
 
     suspend fun refreshContacts() {
         withContext(Dispatchers.IO) {
-            Timber.d("refresh contacts is called");
+            Log.i("ContactRepo", "Refresh contacts is called");
             val contactList = ContactRetrofitApi.contacts.getContacts()
+            Log.i("ContactRepo", "ContactList created ${contactList.toString()}");
             database.contactDtbDao.insertAll(contactList.asDatabaseModel())
         }
     }
