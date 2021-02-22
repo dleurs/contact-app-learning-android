@@ -2,6 +2,9 @@ package fr.dleurs.android.contactapp.ui
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentTransaction
 import fr.dleurs.android.contactapp.R
 
 
@@ -13,6 +16,14 @@ class ContactActivity : AppCompatActivity() {
      */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        val fragment: Fragment = ContactFragment()
+
+        val fm: FragmentManager = supportFragmentManager
+        val transaction: FragmentTransaction = fm.beginTransaction()
+        transaction.replace(R.id.contentFragment, fragment)
+        transaction.commit()
+
         setContentView(R.layout.contact_activity)
     }
 }
