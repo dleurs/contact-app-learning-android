@@ -16,12 +16,12 @@ interface ContactNtwDao {
 }
 
 object ContactRetrofitApi {
-    private val moshi = Moshi.Builder()
+ /*   private val moshi = Moshi.Builder()
         .add(KotlinJsonAdapterFactory())
-        .build()
+        .build()*/
 
     private val retrofit = Retrofit.Builder()
-        .addConverterFactory(MoshiConverterFactory.create(moshi))
+        .addConverterFactory(MoshiConverterFactory.create())
         .baseUrl(BASE_URL)
         .build()
 
