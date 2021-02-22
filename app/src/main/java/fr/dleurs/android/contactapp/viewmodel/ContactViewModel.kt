@@ -4,6 +4,7 @@ import android.app.Application
 import android.util.Log
 import androidx.lifecycle.*
 import fr.dleurs.android.contactapp.database.getDatabase
+import fr.dleurs.android.contactapp.model.Contact
 import fr.dleurs.android.contactapp.repository.ContactRepository
 import kotlinx.coroutines.launch
 import java.io.IOException
@@ -13,7 +14,7 @@ class ContactViewModel(application: Application) : AndroidViewModel(application)
     //private val contactsRepository = ContactRepository(ContactsDatabase.getDatabase(application))
 
     private val contactsRepository = ContactRepository(getDatabase(application))
-    val playlist = contactsRepository.contacts
+    var playlist: LiveData<List<Contact>>  = contactsRepository.contacts
 
     fun onClickFab() {
         println("Hello World");
