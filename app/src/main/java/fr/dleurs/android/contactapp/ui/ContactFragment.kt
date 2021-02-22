@@ -31,13 +31,13 @@ class ContactFragment : Fragment(R.layout.fragment_contact) {
             .get(ContactViewModel::class.java)
     }
 
-    private var viewModelAdapter: ContactAdapter? = null
+    private val contactAdapter: ContactAdapter = ContactAdapter()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.playlist.observe(viewLifecycleOwner, Observer<List<Contact>> { contacts ->
-            contacts?.apply {
-                viewModelAdapter?.contacts = contacts
+            contacts?.let {
+                contactAdapter.contacts = it
             }
         })
     }
@@ -56,7 +56,7 @@ class ContactFragment : Fragment(R.layout.fragment_contact) {
 
        binding.root.findViewById<RecyclerView>(R.id.recycler_view).apply {
             layoutManager = LinearLayoutManager(context)
-            adapter = viewModelAdapter
+            adapter = contactAdapter
         }
 
 
@@ -78,45 +78,4 @@ class ContactFragment : Fragment(R.layout.fragment_contact) {
 }
 
 
-class ContactAdapter() : RecyclerView.Adapter<ContactViewHolder>() {
 
-    /**
-     * The videos that our Adapter will show
-     */
-    var contacts: List<Contact> = emptyList()
-    //var contacts: List<Contact> = listOf(Contact(firstName = "Dimitri", lastName = "Lele", id="12345", mail = "d@g.com"))
-        set(value) {
-            field = value
-            // For an extra challenge, update this to use the paging library.
-
-            // Notify any registered observers that the data set has changed. This will cause every
-            // element in our RecyclerView to be invalidated.
-            notifyDataSetChanged()
-        }
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ContactViewHolder {
-        val withDataBinding: ContactItemBinding = DataBindingUtil.inflate(
-            LayoutInflater.from(parent.context),
-            ContactViewHolder.LAYOUT,
-            parent,
-            false)
-        return ContactViewHolder(withDataBinding)
-    }
-
-    override fun getItemCount() = contacts.size
-
-    override fun onBindViewHolder(holder: ContactViewHolder, position: Int) {
-        holder.viewDataBinding.also {
-            it.contact = contacts[position]
-        }
-    }
-
-}
-
-class ContactViewHolder(val viewDataBinding: ContactItemBinding) :
-    RecyclerView.ViewHolder(viewDataBinding.root) {
-    companion object {
-        @LayoutRes
-        val LAYOUT = R.layout.contact_item
-    }
-}
