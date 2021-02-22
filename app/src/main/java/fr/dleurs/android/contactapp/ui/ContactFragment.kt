@@ -23,11 +23,6 @@ import fr.dleurs.android.contactapp.viewmodel.ContactViewModel
 
 class ContactFragment : Fragment() {
 
-    /**
-     * One way to delay creation of the viewModel until an appropriate lifecycle method is to use
-     * lazy. This requires that viewModel not be referenced before onActivityCreated, which we
-     * do in this Fragment.
-     */
     private val viewModel: ContactViewModel by lazy {
         val activity = requireNotNull(this.activity) {
             "You can only access the viewModel after onActivityCreated()"
@@ -36,17 +31,8 @@ class ContactFragment : Fragment() {
             .get(ContactViewModel::class.java)
     }
 
-    /**
-     * RecyclerView Adapter for converting a list of Video to cards.
-     */
     private var viewModelAdapter: ContactAdapter? = null
 
-    /**
-     * Called immediately after onCreateView() has returned, and fragment's
-     * view hierarchy has been created. It can be used to do final
-     * initialization once these pieces are in place, such as retrieving
-     * views or restoring state.
-     */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.playlist.observe(viewLifecycleOwner, Observer<List<Contact>> { contacts ->
@@ -56,22 +42,6 @@ class ContactFragment : Fragment() {
         })
     }
 
-    /**
-     * Called to have the fragment instantiate its user interface view.
-     *
-     * <p>If you return a View from here, you will later be called in
-     * {@link #onDestroyView} when the view is being released.
-     *
-     * @param inflater The LayoutInflater object that can be used to inflate
-     * any views in the fragment,
-     * @param container If non-null, this is the parent view that the fragment's
-     * UI should be attached to.  The fragment should not add the view itself,
-     * but this can be used to generate the LayoutParams of the view.
-     * @param savedInstanceState If non-null, this fragment is being re-constructed
-     * from a previous saved state as given here.
-     *
-     * @return Return the View for the fragment's UI.
-     */
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         val binding: FragmentContactBinding = DataBindingUtil.inflate(
@@ -99,9 +69,6 @@ class ContactFragment : Fragment() {
         return binding.root
     }
 
-    /**
-     * Method for displaying a Toast error message for network errors.
-     */
     private fun onNetworkError() {
         if(!viewModel.isNetworkErrorShown.value!!) {
             Toast.makeText(activity, "Network Error", Toast.LENGTH_LONG).show()
@@ -112,9 +79,6 @@ class ContactFragment : Fragment() {
 }
 
 
-/**
- * RecyclerView Adapter for setting up data binding on the items in the list.
- */
 class ContactAdapter() : RecyclerView.Adapter<ContactViewHolder>() {
 
     /**
@@ -130,10 +94,6 @@ class ContactAdapter() : RecyclerView.Adapter<ContactViewHolder>() {
             notifyDataSetChanged()
         }
 
-    /**
-     * Called when RecyclerView needs a new {@link ViewHolder} of the given type to represent
-     * an item.
-     */
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ContactViewHolder {
         val withDataBinding: ContactItemBinding = DataBindingUtil.inflate(
             LayoutInflater.from(parent.context),
@@ -145,11 +105,6 @@ class ContactAdapter() : RecyclerView.Adapter<ContactViewHolder>() {
 
     override fun getItemCount() = contacts.size
 
-    /**
-     * Called by RecyclerView to display the data at the specified position. This method should
-     * update the contents of the {@link ViewHolder#itemView} to reflect the item at the given
-     * position.
-     */
     override fun onBindViewHolder(holder: ContactViewHolder, position: Int) {
         holder.viewDataBinding.also {
             it.contact = contacts[position]
@@ -158,9 +113,6 @@ class ContactAdapter() : RecyclerView.Adapter<ContactViewHolder>() {
 
 }
 
-/**
- * ViewHolder for DevByte items. All work is done by data binding.
- */
 class ContactViewHolder(val viewDataBinding: ContactItemBinding) :
     RecyclerView.ViewHolder(viewDataBinding.root) {
     companion object {
