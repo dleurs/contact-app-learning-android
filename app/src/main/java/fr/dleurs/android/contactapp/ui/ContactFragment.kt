@@ -31,13 +31,13 @@ class ContactFragment : Fragment(R.layout.fragment_contact) {
             .get(ContactViewModel::class.java)
     }
 
-    private val contactAdapter: ContactAdapter = ContactAdapter()
+    private val viewModelAdapter: ContactAdapter = ContactAdapter()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.playlist.observe(viewLifecycleOwner, Observer<List<Contact>> { contacts ->
             contacts?.let {
-                contactAdapter.contacts = it
+                viewModelAdapter.contacts = it
             }
         })
     }
@@ -56,7 +56,7 @@ class ContactFragment : Fragment(R.layout.fragment_contact) {
 
        binding.root.findViewById<RecyclerView>(R.id.recycler_view).apply {
             layoutManager = LinearLayoutManager(context)
-            adapter = contactAdapter
+            adapter = viewModelAdapter
         }
 
 
