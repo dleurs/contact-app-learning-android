@@ -52,10 +52,9 @@ class ContactFragment : Fragment(R.layout.fragment_contact) {
         // Set the lifecycleOwner so DataBinding can observe LiveData
         binding.setLifecycleOwner(viewLifecycleOwner)
 
-        //binding.viewModel = viewModel
+        //binding.viewModel = viewModel no binding in viewModel
 
-
-        binding.root.findViewById<RecyclerView>(R.id.recycler_view).apply {
+       binding.root.findViewById<RecyclerView>(R.id.recycler_view).apply {
             layoutManager = LinearLayoutManager(context)
             adapter = viewModelAdapter
         }
@@ -85,6 +84,7 @@ class ContactAdapter() : RecyclerView.Adapter<ContactViewHolder>() {
      * The videos that our Adapter will show
      */
     var contacts: List<Contact> = emptyList()
+    //var contacts: List<Contact> = listOf(Contact(firstName = "Dimitri", lastName = "Lele", id="12345", mail = "d@g.com"))
         set(value) {
             field = value
             // For an extra challenge, update this to use the paging library.
