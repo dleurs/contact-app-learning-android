@@ -21,7 +21,7 @@ import fr.dleurs.android.contactapp.databinding.FragmentContactBinding
 import fr.dleurs.android.contactapp.model.Contact
 import fr.dleurs.android.contactapp.viewmodel.ContactViewModel
 
-class ContactFragment : Fragment() {
+class ContactFragment : Fragment(R.layout.fragment_contact) {
 
     private val viewModel: ContactViewModel by lazy {
         val activity = requireNotNull(this.activity) {
