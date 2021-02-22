@@ -14,6 +14,10 @@ class ContactViewModel(application: Application) : AndroidViewModel(application)
     private val contactsRepository = ContactRepository(getDatabase(application))
     val playlist = contactsRepository.contacts
 
+    fun onClickFab() {
+        println("Hello World");
+    }
+
     /**
      * Event triggered for network error. This is private to avoid exposing a
      * way to set this value to observers.
