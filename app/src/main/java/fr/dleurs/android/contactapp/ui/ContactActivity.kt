@@ -8,7 +8,7 @@ import androidx.fragment.app.FragmentTransaction
 import androidx.viewpager.widget.ViewPager
 import com.google.android.material.tabs.TabLayout
 import fr.dleurs.android.contactapp.R
-import fr.dleurs.android.contactapp.ui.main.SectionsPagerAdapter
+import fr.dleurs.android.contactapp.ui.SectionsPagerAdapter
 
 
 class ContactActivity : AppCompatActivity() {

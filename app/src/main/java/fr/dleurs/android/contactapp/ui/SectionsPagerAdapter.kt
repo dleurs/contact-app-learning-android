@@ -1,4 +1,4 @@
-package fr.dleurs.android.contactapp.ui.main
+package fr.dleurs.android.contactapp.ui
 
 
 import android.content.Context
@@ -7,6 +7,7 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import fr.dleurs.android.contactapp.R
 import fr.dleurs.android.contactapp.ui.ContactFragment
+import timber.log.Timber
 
 private val TAB_TITLES = arrayOf(
     R.string.tab_text_1,
@@ -17,13 +18,19 @@ private val TAB_TITLES = arrayOf(
  * A [FragmentPagerAdapter] that returns a fragment corresponding to
  * one of the sections/tabs/pages.
  */
-class SectionsPagerAdapter(private val context: Context, fm: FragmentManager)
-    : FragmentPagerAdapter(fm) {
+class SectionsPagerAdapter(private val context: Context, fm: FragmentManager) :
+    FragmentPagerAdapter(fm) {
 
     override fun getItem(position: Int): Fragment {
         // getItem is called to instantiate the fragment for the given page.
         // Return a PlaceholderFragment (defined as a static inner class below).
-        return ContactFragment(position + 1)
+        if (position == 0) {
+            Timber.i("First Tab")
+            return ContactFragment()
+        } else {
+            Timber.i("Second Tab")
+            return ContactFragment()
+        }
     }
 
     override fun getPageTitle(position: Int): CharSequence? {
