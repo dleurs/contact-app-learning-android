@@ -29,7 +29,7 @@ class SectionsPagerAdapter(private val context: Context, fm: FragmentManager) :
             return ContactFragment()
         } else {
             Timber.i("Second Tab")
-            return ContactFragment()
+            return MapFragment()
         }
     }
 
