@@ -12,21 +12,51 @@
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@color/numerbly_medium_blue">
 
 
-        <EditText
-            android:id="@+id/editTextContact"
-            android:layout_width="fill_parent"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:minHeight="?actionBarSize"
-            android:hint="@string/activity_main_search_in_contacts"
-            android:inputType="textPersonName"
-            android:text="" />
+            android:layout_margin="10dp"
+            android:background="@color/white">
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginEnd="24dp"
+                android:maxWidth="30dp"
+                android:maxHeight="30dp"
+                android:src="@drawable/ic_loupe"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/editTextContact"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+            </ImageView>
+
+            <EditText
+                android:id="@+id/editTextContact"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:hint="@string/activity_main_search_in_contacts"
+                android:background="@android:color/transparent"
+                android:inputType="textPersonName"
+                android:minHeight="?actionBarSize"
+                android:text=""
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/imageView"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <com.google.android.material.tabs.TabLayout
             app:tabTextColor="@color/white"
             app:tabBackground="@color/numerbly_medium_blue"
+
             android:id="@+id/tabs"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
