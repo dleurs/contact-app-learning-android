@@ -1,6 +1,5 @@
 package fr.dleurs.android.contactapp.ui
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
@@ -13,22 +12,13 @@ import fr.dleurs.android.contactapp.R
 import fr.dleurs.android.contactapp.model.Contact
 import fr.dleurs.android.contactapp.ui.SectionsPagerAdapter
 
-class ContactActivity : AppCompatActivity() {
 
-    /**
-     * Called when the activity is starting.  This is where most initialization
-     * should go
-     */
+class CreateModifyContactActivity : AppCompatActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        setContentView(R.layout.contact_activity)
-        val sectionsPagerAdapter = SectionsPagerAdapter(this, supportFragmentManager)
-        val viewPager: ViewPager = findViewById(R.id.contentFragment)
-        viewPager.adapter = sectionsPagerAdapter
-        val tabs: TabLayout = findViewById(R.id.tabs)
-        tabs.setupWithViewPager(viewPager)
+        setContentView(R.layout.create_modify_contact_activity)
 
     }
 }
-

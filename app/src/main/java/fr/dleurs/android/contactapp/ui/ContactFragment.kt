@@ -1,5 +1,6 @@
 package fr.dleurs.android.contactapp.ui
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,14 +12,18 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 import fr.dleurs.android.contactapp.R
 import fr.dleurs.android.contactapp.databinding.FragmentContactBinding
 import fr.dleurs.android.contactapp.model.Contact
 import fr.dleurs.android.contactapp.viewmodel.ContactViewModel
 
+const val EXTRA_CONTACT = "fr.dleurs.android.contactapp.CONTACT"
+
 class ContactFragment() : Fragment(R.layout.fragment_contact) {
 
+    private val createContactActivityRequestCode = 1
     private val viewModel: ContactViewModel by lazy {
         val activity = requireNotNull(this.activity) {
             "You can only access the viewModel after onActivityCreated()"
@@ -56,6 +61,13 @@ class ContactFragment() : Fragment(R.layout.fragment_contact) {
         binding.root.findViewById<RecyclerView>(R.id.recycler_view).apply {
             layoutManager = LinearLayoutManager(context)
             adapter = contactAdapter
+        }
+
+        binding.root.findViewById<FloatingActionButton>(R.id.fab).apply {
+            this.setOnClickListener {
+                val intent = Intent(this.context, CreateModifyContactActivity::class.java)
+                startActivityForResult(intent, createContactActivityRequestCode)
+            }
         }
 
 
