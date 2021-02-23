@@ -30,7 +30,8 @@ class ContactAdapter() : RecyclerView.Adapter<ContactViewHolder>() {
             LayoutInflater.from(parent.context),
             ContactViewHolder.LAYOUT,
             parent,
-            false)
+            false
+        )
         return ContactViewHolder(withDataBinding)
     }
 

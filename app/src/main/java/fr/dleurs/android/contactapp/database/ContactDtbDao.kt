@@ -8,9 +8,6 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class ContactRoom {
-}
-
 @Dao
 interface ContactDtbDao {
     @Query("select * from contact_table")
@@ -27,18 +24,20 @@ interface ContactDtbDao {
 }
 
 @Database(entities = [ContactDatabase::class], version = 1)
-abstract class ContactsDatabase: RoomDatabase() {
+abstract class ContactsDatabase : RoomDatabase() {
     abstract val contactDtbDao: ContactDtbDao
 }
 
-private lateinit var INSTANCE:ContactsDatabase
+private lateinit var INSTANCE: ContactsDatabase
 
 fun getDatabase(context: Context): ContactsDatabase {
     synchronized(ContactsDatabase::class.java) {
         if (!::INSTANCE.isInitialized) {
-            INSTANCE = Room.databaseBuilder(context.applicationContext,
+            INSTANCE = Room.databaseBuilder(
+                context.applicationContext,
                 ContactsDatabase::class.java,
-                "contacts").build()
+                "contacts"
+            ).build()
         }
     }
     return INSTANCE

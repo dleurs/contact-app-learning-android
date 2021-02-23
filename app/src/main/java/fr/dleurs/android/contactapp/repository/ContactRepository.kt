@@ -16,9 +16,10 @@ import java.util.logging.Level.INFO
 
 class ContactRepository(private val database: ContactsDatabase) {
 
-    val contacts: LiveData<List<Contact>> = Transformations.map(database.contactDtbDao.getContacts()) {
-        it.asDomainModel()
-    }
+    val contacts: LiveData<List<Contact>> =
+        Transformations.map(database.contactDtbDao.getContacts()) {
+            it.asDomainModel()
+        }
 
     suspend fun refreshContacts() {
         withContext(Dispatchers.IO) {

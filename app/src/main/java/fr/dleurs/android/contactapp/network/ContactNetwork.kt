@@ -15,15 +15,16 @@ data class ContactNetwork(
     val id: String,
     val firstName: String,
     val name: String,
-    val mail: String)
+    val mail: String
+)
 
 fun ContactNetworkContainer.asDomainModel(): List<Contact> {
     return contacts.map {
         Contact(
-                id = it.id,
-                firstName = it.firstName,
-                lastName = it.name,
-                mail = it.mail
+            id = it.id,
+            firstName = it.firstName,
+            lastName = it.name,
+            mail = it.mail
         )
     }
 }
@@ -31,9 +32,10 @@ fun ContactNetworkContainer.asDomainModel(): List<Contact> {
 fun ContactNetworkContainer.asDatabaseModel(): List<ContactDatabase> {
     return contacts.map {
         ContactDatabase(
-                id = it.id.toInt(),
-                firstName = it.firstName,
-                lastName = it.name,
-                mail = it.mail)
+            id = it.id.toInt(),
+            firstName = it.firstName,
+            lastName = it.name,
+            mail = it.mail
+        )
     }
 }

@@ -38,34 +38,39 @@ class ContactFragment() : Fragment(R.layout.fragment_contact) {
         })
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         val binding: FragmentContactBinding = DataBindingUtil.inflate(
             inflater,
             R.layout.fragment_contact,
             container,
-            false)
+            false
+        )
         // Set the lifecycleOwner so DataBinding can observe LiveData
         binding.setLifecycleOwner(viewLifecycleOwner)
 
         //binding.viewModel = viewModel no binding in viewModel
 
-       binding.root.findViewById<RecyclerView>(R.id.recycler_view).apply {
+        binding.root.findViewById<RecyclerView>(R.id.recycler_view).apply {
             layoutManager = LinearLayoutManager(context)
             adapter = contactAdapter
         }
 
 
         // Observer for the network error.
-        viewModel.eventNetworkError.observe(viewLifecycleOwner, Observer<Boolean> { isNetworkError ->
-            if (isNetworkError) onNetworkError()
-        })
+        viewModel.eventNetworkError.observe(
+            viewLifecycleOwner,
+            Observer<Boolean> { isNetworkError ->
+                if (isNetworkError) onNetworkError()
+            })
 
         return binding.root
     }
 
     private fun onNetworkError() {
-        if(!viewModel.isNetworkErrorShown.value!!) {
+        if (!viewModel.isNetworkErrorShown.value!!) {
             Toast.makeText(activity, "Network Error", Toast.LENGTH_LONG).show()
             viewModel.onNetworkErrorShown()
         }

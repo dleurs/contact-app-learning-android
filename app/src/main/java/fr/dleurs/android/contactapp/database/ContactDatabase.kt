@@ -6,11 +6,11 @@ import fr.dleurs.android.contactapp.model.Contact
 
 @Entity(tableName = "contact_table")
 data class ContactDatabase(
-        @PrimaryKey(autoGenerate = true)
-        val id: Int = 0,
-        val firstName: String,
-        val lastName: String,
-        val mail: String
+    @PrimaryKey(autoGenerate = true)
+    val id: Int = 0,
+    val firstName: String,
+    val lastName: String,
+    val mail: String
 )
 
 /**
@@ -19,10 +19,10 @@ data class ContactDatabase(
 fun List<ContactDatabase>.asDomainModel(): List<Contact> {
     return map {
         Contact(
-                id = it.id.toString(),
-                firstName = it.firstName,
-                lastName = it.lastName,
-                mail = it.mail,
+            id = it.id.toString(),
+            firstName = it.firstName,
+            lastName = it.lastName,
+            mail = it.mail,
         )
     }
 }
