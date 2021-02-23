@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">ContactApp</string>
+    <string name="contact_activity_name">ContactActivity</string>
+    <string name="cm_contact_activity_name">CreateModifyContactActivity</string>
     <!-- Strings used for fragments for navigation -->
 
     <string name="tab_text_1">List</string>

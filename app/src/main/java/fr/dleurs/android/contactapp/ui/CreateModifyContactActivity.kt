@@ -1,5 +1,6 @@
 package fr.dleurs.android.contactapp.ui
 
+import android.content.res.Resources
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
@@ -17,7 +18,6 @@ class CreateModifyContactActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         setContentView(R.layout.create_modify_contact_activity)
 
     }
