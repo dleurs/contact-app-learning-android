@@ -21,7 +21,7 @@ import fr.dleurs.android.contactapp.databinding.FragmentContactBinding
 import fr.dleurs.android.contactapp.model.Contact
 import fr.dleurs.android.contactapp.viewmodel.ContactViewModel
 
-class ContactFragment : Fragment(R.layout.fragment_contact) {
+class ContactFragment(val ARG_SECTION_NUMBER: Int) : Fragment(R.layout.fragment_contact) {
 
     private val viewModel: ContactViewModel by lazy {
         val activity = requireNotNull(this.activity) {
@@ -35,6 +35,7 @@ class ContactFragment : Fragment(R.layout.fragment_contact) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        println(ARG_SECTION_NUMBER);
         viewModel.playlist.observe(viewLifecycleOwner, Observer<List<Contact>> { contacts ->
             contacts?.let {
                 viewModelAdapter.contacts = it
