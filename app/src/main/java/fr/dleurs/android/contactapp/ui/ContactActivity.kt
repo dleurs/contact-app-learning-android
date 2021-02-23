@@ -27,14 +27,6 @@ class ContactActivity : AppCompatActivity() {
         val tabs: TabLayout = findViewById(R.id.tabs)
         tabs.setupWithViewPager(viewPager)
 
-        //val fragment: Fragment = ContactFragment()
-
-/*        val fm: FragmentManager = supportFragmentManager
-        val transaction: FragmentTransaction = fm.beginTransaction()
-        transaction.replace(R.id.contentFragment, fragment)
-        transaction.commit()*/
-
-
     }
 }
 
