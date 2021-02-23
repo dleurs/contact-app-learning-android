@@ -20,12 +20,13 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:minHeight="?actionBarSize"
-            android:hint="Search a contact"
+            android:hint="@string/activity_main_search_in_contacts"
             android:inputType="textPersonName"
             android:text="" />
 
         <com.google.android.material.tabs.TabLayout
             app:tabTextColor="@color/white"
+            app:tabBackground="@color/numerbly_medium_blue"
             android:id="@+id/tabs"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
