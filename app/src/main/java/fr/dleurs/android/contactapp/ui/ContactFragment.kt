@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -18,19 +19,17 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import fr.dleurs.android.contactapp.R
 import fr.dleurs.android.contactapp.databinding.FragmentContactBinding
 import fr.dleurs.android.contactapp.model.Contact
+import fr.dleurs.android.contactapp.utils.FabButtonInterface
 import fr.dleurs.android.contactapp.viewmodel.ContactViewModel
 
 const val EXTRA_CONTACT = "fr.dleurs.android.contactapp.CONTACT"
 
 class ContactFragment() : Fragment(R.layout.fragment_contact) {
 
-    private val createContactActivityRequestCode = 1
-
-
 
     private val contactAdapter: ContactAdapter = ContactAdapter()
-
     private val viewModel: ContactViewModel by activityViewModels()
+    private lateinit var fabButtonInterface: FabButtonInterface
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -46,6 +45,11 @@ class ContactFragment() : Fragment(R.layout.fragment_contact) {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
+        activity?.let {
+            instantiateFabButtonInterface(it)
+        }
+
         val binding: FragmentContactBinding = DataBindingUtil.inflate(
             inflater,
             R.layout.fragment_contact,
@@ -64,8 +68,7 @@ class ContactFragment() : Fragment(R.layout.fragment_contact) {
 
         binding.root.findViewById<FloatingActionButton>(R.id.fab).apply {
             this.setOnClickListener {
-                val intent = Intent(this.context, CreateModifyContactActivity::class.java)
-                startActivityForResult(intent, createContactActivityRequestCode)
+                fabButtonInterface.createContact()
             }
         }
 
@@ -85,6 +88,10 @@ class ContactFragment() : Fragment(R.layout.fragment_contact) {
             Toast.makeText(activity, "Network Error", Toast.LENGTH_LONG).show()
             viewModel.onNetworkErrorShown()
         }
+    }
+
+    private fun instantiateFabButtonInterface(context: FragmentActivity) {
+        fabButtonInterface = context as FabButtonInterface
     }
 
 }

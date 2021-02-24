@@ -15,14 +15,16 @@ import com.google.android.material.tabs.TabLayout
 import fr.dleurs.android.contactapp.R
 import fr.dleurs.android.contactapp.model.Contact
 import fr.dleurs.android.contactapp.ui.SectionsPagerAdapter
+import fr.dleurs.android.contactapp.utils.FabButtonInterface
 import fr.dleurs.android.contactapp.viewmodel.ContactViewModel
+import timber.log.Timber
 
-class ContactActivity : AppCompatActivity() {
+class ContactActivity : AppCompatActivity(), FabButtonInterface {
 
 
     private lateinit var viewModel: ContactViewModel
 
-    private val contactAdapter: ContactAdapter = ContactAdapter()
+    private val createContactActivityRequestCode = 1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,6 +42,12 @@ class ContactActivity : AppCompatActivity() {
         val tabs: TabLayout = findViewById(R.id.tabs)
         tabs.setupWithViewPager(viewPager)
 
+    }
+
+    override fun createContact() {
+        Timber.i("Create a new contact started")
+        val intent = Intent(this, CreateModifyContactActivity::class.java)
+        startActivityForResult(intent, createContactActivityRequestCode)
     }
 }
 
