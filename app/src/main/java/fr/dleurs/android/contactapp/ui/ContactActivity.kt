@@ -1,8 +1,10 @@
 package fr.dleurs.android.contactapp.ui
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
@@ -48,6 +50,20 @@ class ContactActivity : AppCompatActivity(), FabButtonInterface {
         Timber.i("Create a new contact started")
         val intent = Intent(this, CreateModifyContactActivity::class.java)
         startActivityForResult(intent, createContactActivityRequestCode)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, intentData: Intent?) {
+        super.onActivityResult(requestCode, resultCode, intentData)
+
+        if (requestCode == createContactActivityRequestCode && resultCode == Activity.RESULT_OK) {
+            Timber.i("Intent received")
+            //intentData?.getStringExtra(EXTRA_REPLY)?.let { reply ->
+            //    val todo = TodoRoom(reply)
+                //todoViewModel.insert(todo)
+            //}
+        } else {
+            Toast.makeText(this, "Error", Toast.LENGTH_LONG).show()
+        }
     }
 }
 
