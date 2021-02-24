@@ -1,6 +1,5 @@
 package fr.dleurs.android.contactapp.ui
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,7 +10,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -68,7 +66,7 @@ class ContactFragment() : Fragment(R.layout.fragment_contact) {
 
         binding.root.findViewById<FloatingActionButton>(R.id.fab).apply {
             this.setOnClickListener {
-                fabButtonInterface.createContact()
+                fabButtonInterface.goToCreateContactActivity()
             }
         }
 

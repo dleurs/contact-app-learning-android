@@ -9,6 +9,10 @@
     <string name="tab_text_1">List</string>
 
     <string name="tab_text_2">Map</string>
+    <string name="new_contact_activity_save_button">Save</string>
+    <string name="new_contact_activity_lastname_hint">Lastname</string>
+    <string name="new_contact_activity_firstname_hint">Firstname</string>
+    <string name="new_contact_activity_mail_hint">E-mail</string>
 
 
 

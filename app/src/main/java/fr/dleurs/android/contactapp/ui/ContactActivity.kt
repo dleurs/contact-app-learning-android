@@ -44,7 +44,7 @@ class ContactActivity : AppCompatActivity(), FabButtonInterface {
 
     }
 
-    override fun createContact() {
+    override fun goToCreateContactActivity() {
         Timber.i("Create a new contact started")
         val intent = Intent(this, CreateModifyContactActivity::class.java)
         startActivityForResult(intent, createContactActivityRequestCode)
