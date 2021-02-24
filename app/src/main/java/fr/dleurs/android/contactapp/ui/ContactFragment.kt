@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -25,23 +26,15 @@ class ContactFragment() : Fragment(R.layout.fragment_contact) {
 
     private val createContactActivityRequestCode = 1
 
-    private val viewModel: ContactViewModel by lazy {
-        val activity = requireNotNull(this.activity) {
-            "You can only access the viewModel after onActivityCreated()"
-        }
-        ViewModelProvider(this, ContactViewModel.Factory(activity.application))
-            .get(ContactViewModel::class.java)
-    }
+
 
     private val contactAdapter: ContactAdapter = ContactAdapter()
 
+    private val viewModel: ContactViewModel by activityViewModels()
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.liveContacts.observe(viewLifecycleOwner, Observer<List<Contact>> { contacts -> // this or viewLifecycleOwner ?
-            contacts?.let {
-                contactAdapter.contacts = it
-            }
-        })
+
     }
 
     override fun onCreateView(
