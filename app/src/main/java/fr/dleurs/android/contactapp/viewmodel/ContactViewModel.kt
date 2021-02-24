@@ -14,7 +14,7 @@ class ContactViewModel(application: Application) : AndroidViewModel(application)
     //private val contactsRepository = ContactRepository(ContactsDatabase.getDatabase(application))
 
     private val contactsRepository = ContactRepository(getDatabase(application))
-    var playlist: LiveData<List<Contact>> = contactsRepository.contacts
+    var liveContacts: LiveData<List<Contact>> = contactsRepository.contacts
 
     fun onClickFab() {
         println("Hello World");
@@ -67,7 +67,7 @@ class ContactViewModel(application: Application) : AndroidViewModel(application)
             } catch (networkError: IOException) {
                 // Show a Toast error message and hide the progress bar.
                 Log.i("ContactViewModel", "Error on refreshContact : ${networkError.toString()}")
-                if (playlist.value.isNullOrEmpty())
+                if (liveContacts.value.isNullOrEmpty())
                     _eventNetworkError.value = true
             }
         }

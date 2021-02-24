@@ -24,6 +24,7 @@ const val EXTRA_CONTACT = "fr.dleurs.android.contactapp.CONTACT"
 class ContactFragment() : Fragment(R.layout.fragment_contact) {
 
     private val createContactActivityRequestCode = 1
+
     private val viewModel: ContactViewModel by lazy {
         val activity = requireNotNull(this.activity) {
             "You can only access the viewModel after onActivityCreated()"
@@ -36,7 +37,7 @@ class ContactFragment() : Fragment(R.layout.fragment_contact) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.playlist.observe(viewLifecycleOwner, Observer<List<Contact>> { contacts ->
+        viewModel.liveContacts.observe(viewLifecycleOwner, Observer<List<Contact>> { contacts -> // this or viewLifecycleOwner ?
             contacts?.let {
                 contactAdapter.contacts = it
             }
