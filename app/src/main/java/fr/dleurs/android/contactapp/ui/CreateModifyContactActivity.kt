@@ -14,6 +14,7 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import androidx.viewpager.widget.ViewPager
 import com.google.android.material.tabs.TabLayout
+import com.google.android.material.textfield.TextInputLayout
 import fr.dleurs.android.contactapp.R
 import fr.dleurs.android.contactapp.model.Contact
 import fr.dleurs.android.contactapp.ui.SectionsPagerAdapter
@@ -21,6 +22,11 @@ import timber.log.Timber
 
 
 class CreateModifyContactActivity : AppCompatActivity() {
+
+    private lateinit var textInputLastName: TextInputLayout
+    private lateinit var textInputFirstName: TextInputLayout
+    private lateinit var textInputMail: TextInputLayout
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,6 +36,9 @@ class CreateModifyContactActivity : AppCompatActivity() {
 
         val buttonSave = findViewById<Button>(R.id.button_save)
         val buttonBack = findViewById<ImageButton>(R.id.ibBack)
+        textInputLastName = findViewById(R.id.tiLastName)
+        textInputFirstName = findViewById(R.id.tiFirstName)
+        textInputMail = findViewById(R.id.tiMail)
 
         buttonSave.setOnClickListener {
             val replyIntent = Intent()
@@ -48,4 +57,12 @@ class CreateModifyContactActivity : AppCompatActivity() {
             finish()
         }
     }
+
+    private fun validateEmailInput(): Boolean {
+        var email: String = textInputMail.getEditText()!!.getText().toString().trim()
+        if (email.isNullOrEmpty()) {
+            textInputMail.setError("@string/new_contact_activity_error_form_empty")
+        }
+    }
+
 }

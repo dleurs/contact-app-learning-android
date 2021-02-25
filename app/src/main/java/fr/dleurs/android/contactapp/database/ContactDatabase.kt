@@ -1,9 +1,12 @@
 package fr.dleurs.android.contactapp.database
 
+import android.os.Parcelable
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import fr.dleurs.android.contactapp.model.Contact
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 @Entity(tableName = "contact_table")
 data class ContactDatabase(
     @PrimaryKey(autoGenerate = true)
@@ -11,7 +14,7 @@ data class ContactDatabase(
     val firstName: String,
     val lastName: String,
     val mail: String
-)
+) : Parcelable
 
 /**
  * Map DatabaseVideos to domain entities

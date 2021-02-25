@@ -14,6 +14,8 @@
     <string name="new_contact_activity_firstname_hint">Firstname</string>
     <string name="new_contact_activity_mail_hint">E-mail</string>
 
+    <string name="new_contact_activity_error_form_empty">"Field is required"</string>
+
 
 
 </resources>

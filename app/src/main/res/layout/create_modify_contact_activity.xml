@@ -26,10 +26,11 @@
         app:srcCompat="@drawable/ic_keyboard_backspace_24px" />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/tilLastName"
+        android:id="@+id/tiLastName"
         style="@style/Theme.TextInputLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:errorEnabled="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ibProfile">
@@ -39,6 +40,7 @@
             android:layout_height="wrap_content"
             android:hint="@string/new_contact_activity_lastname_hint"
             android:textSize="18sp"
+            android:inputType="text"
             tools:layout_editor_absoluteX="16dp"
             tools:layout_editor_absoluteY="68dp">
 
@@ -47,19 +49,21 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/tilFirstName"
+        android:id="@+id/tiFirstName"
         style="@style/Theme.TextInputLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:errorEnabled="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tilLastName">
+        app:layout_constraintTop_toBottomOf="@+id/tiLastName">
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/new_contact_activity_firstname_hint"
             android:textSize="18sp"
+            android:inputType="text"
             tools:layout_editor_absoluteX="17dp"
             tools:layout_editor_absoluteY="216dp">
 
@@ -69,18 +73,20 @@
 
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/tilMail"
+        android:id="@+id/tiMail"
         style="@style/Theme.TextInputLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:errorEnabled="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tilFirstName">
+        app:layout_constraintTop_toBottomOf="@+id/tiFirstName">
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/new_contact_activity_mail_hint"
+            android:inputType="textEmailAddress"
             tools:layout_editor_absoluteX="8dp"
             tools:layout_editor_absoluteY="288dp">
 
@@ -96,7 +102,7 @@
         android:text="@string/new_contact_activity_save_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tilMail" />
+        app:layout_constraintTop_toBottomOf="@+id/tiMail" />
 
 
 
