@@ -3,6 +3,7 @@ package fr.dleurs.android.contactapp.viewmodel
 import android.app.Application
 import android.util.Log
 import androidx.lifecycle.*
+import fr.dleurs.android.contactapp.database.ContactDatabase
 import fr.dleurs.android.contactapp.database.getDatabase
 import fr.dleurs.android.contactapp.model.Contact
 import fr.dleurs.android.contactapp.repository.ContactRepository
@@ -16,8 +17,10 @@ class ContactViewModel(application: Application) : AndroidViewModel(application)
     private val contactsRepository = ContactRepository(getDatabase(application))
     var liveContacts: LiveData<List<Contact>> = contactsRepository.contacts
 
-    fun onClickFab() {
-        println("Hello World");
+    public fun insertContact(contact: ContactDatabase) {
+        viewModelScope.launch {
+            contactsRepository.insertContact(contact);
+        }
     }
 
     /**

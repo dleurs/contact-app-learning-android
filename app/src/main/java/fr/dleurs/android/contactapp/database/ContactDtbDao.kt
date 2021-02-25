@@ -14,10 +14,10 @@ interface ContactDtbDao {
     fun getContacts(): LiveData<List<ContactDatabase>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertAll(contacts: List<ContactDatabase>)
+    suspend fun insertAll(contacts: List<ContactDatabase>)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(contact: ContactDatabase)
+    suspend fun insert(contact: ContactDatabase)
 
     @Query("DELETE FROM contact_table")
     suspend fun deleteAll()

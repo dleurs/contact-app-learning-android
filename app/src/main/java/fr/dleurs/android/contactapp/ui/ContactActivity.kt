@@ -61,7 +61,7 @@ class ContactActivity : AppCompatActivity(), FabButtonInterface {
             intentData?.getParcelableExtra<ContactDatabase>("contact")?.let { reply ->
                 val newContact = ContactDatabase(firstName = reply.firstName,lastName = reply.lastName, mail = reply.mail)
                 Timber.i("Intent received + " + newContact.toString())
-                //todoViewModel.insert(todo)
+                viewModel.insertContact(newContact)
             }
         } else {
             Toast.makeText(this, "Error", Toast.LENGTH_LONG).show()
