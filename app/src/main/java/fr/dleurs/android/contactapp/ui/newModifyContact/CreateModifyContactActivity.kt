@@ -46,6 +46,8 @@ class CreateModifyContactActivity : AppCompatActivity() {
         }
 
         buttonBack.setOnClickListener {
+            val replyIntent = Intent()
+            setResult(Activity.RESULT_CANCELED, replyIntent)
             finish()
         }
 
