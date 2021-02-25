@@ -28,6 +28,7 @@ class ContactActivity : AppCompatActivity(), FabButtonInterface {
     private lateinit var viewModel: ContactViewModel
 
     private val createContactActivityRequestCode = 1
+    private val detailContactActivityRequestCode = 2
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,6 +49,12 @@ class ContactActivity : AppCompatActivity(), FabButtonInterface {
     }
 
     override fun goToCreateContactActivity() {
+        Timber.i("Create a new contact started")
+        val intent = Intent(this, CreateModifyContactActivity::class.java)
+        startActivityForResult(intent, createContactActivityRequestCode)
+    }
+
+    override fun goToDetailContactActivity() {
         Timber.i("Create a new contact started")
         val intent = Intent(this, CreateModifyContactActivity::class.java)
         startActivityForResult(intent, createContactActivityRequestCode)
