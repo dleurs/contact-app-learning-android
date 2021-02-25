@@ -62,7 +62,10 @@ class CreateModifyContactActivity : AppCompatActivity() {
         var email: String = textInputMail.getEditText()!!.getText().toString().trim()
         if (email.isNullOrEmpty()) {
             textInputMail.setError("@string/new_contact_activity_error_form_empty")
+            return false;
         }
+        textInputMail.setError(null)
+        return true;
     }
 
 }
