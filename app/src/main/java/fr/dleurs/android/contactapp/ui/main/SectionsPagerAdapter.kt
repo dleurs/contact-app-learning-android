@@ -6,7 +6,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import fr.dleurs.android.contactapp.R
-import fr.dleurs.android.contactapp.ui.ContactFragment
+import fr.dleurs.android.contactapp.ui.main.ContactFragment
 import timber.log.Timber
 
 private val TAB_TITLES = arrayOf(
