@@ -1,4 +1,4 @@
-package fr.dleurs.android.contactapp.ui
+package fr.dleurs.android.contactapp.ui.main
 
 
 import android.content.Context

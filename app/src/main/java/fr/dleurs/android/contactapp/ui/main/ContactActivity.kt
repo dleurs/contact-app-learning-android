@@ -1,23 +1,16 @@
-package fr.dleurs.android.contactapp.ui
+package fr.dleurs.android.contactapp.ui.main
 
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
 import android.widget.Toast
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentTransaction
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager.widget.ViewPager
 import com.google.android.material.tabs.TabLayout
 import fr.dleurs.android.contactapp.R
 import fr.dleurs.android.contactapp.database.ContactDatabase
-import fr.dleurs.android.contactapp.model.Contact
-import fr.dleurs.android.contactapp.ui.SectionsPagerAdapter
+import fr.dleurs.android.contactapp.ui.newModifyContact.CreateModifyContactActivity
 import fr.dleurs.android.contactapp.utils.FabButtonInterface
 import fr.dleurs.android.contactapp.viewmodel.ContactViewModel
 import timber.log.Timber
@@ -70,7 +63,10 @@ class ContactActivity : AppCompatActivity(), FabButtonInterface {
                 Timber.i("Intent received + " + newContact.toString())
                 viewModel.insertContact(newContact)
             }
-        } else {
+        } else if (requestCode == createContactActivityRequestCode && resultCode == Activity.RESULT_CANCELED) {
+
+        }
+        else {
             Toast.makeText(this, "Error", Toast.LENGTH_LONG).show()
         }
     }

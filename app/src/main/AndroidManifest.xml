@@ -11,7 +11,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ContactApp">
         <activity
-            android:name=".ui.ContactActivity"
+            android:name=".ui.main.ContactActivity"
             android:label="@string/contact_activity_name"
             android:theme="@style/Theme.ContactApp.NoActionBar">
 
@@ -22,7 +22,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.CreateModifyContactActivity"
+            android:name=".ui.newModifyContact.CreateModifyContactActivity"
             android:label="@string/cm_contact_activity_name"
             android:theme="@style/Theme.ContactApp.NoActionBar"></activity>
     </application>

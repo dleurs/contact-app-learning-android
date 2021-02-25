@@ -1,4 +1,4 @@
-package fr.dleurs.android.contactapp.ui
+package fr.dleurs.android.contactapp.ui.newModifyContact
 
 import android.app.Activity
 import android.content.Intent

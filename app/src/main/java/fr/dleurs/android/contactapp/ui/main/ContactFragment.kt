@@ -1,4 +1,4 @@
-package fr.dleurs.android.contactapp.ui
+package fr.dleurs.android.contactapp.ui.main
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -17,6 +17,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import fr.dleurs.android.contactapp.R
 import fr.dleurs.android.contactapp.databinding.FragmentContactBinding
 import fr.dleurs.android.contactapp.model.Contact
+import fr.dleurs.android.contactapp.ui.ContactAdapter
 import fr.dleurs.android.contactapp.utils.FabButtonInterface
 import fr.dleurs.android.contactapp.viewmodel.ContactViewModel
 
