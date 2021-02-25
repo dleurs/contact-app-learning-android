@@ -15,6 +15,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager.widget.ViewPager
 import com.google.android.material.tabs.TabLayout
 import fr.dleurs.android.contactapp.R
+import fr.dleurs.android.contactapp.database.ContactDatabase
 import fr.dleurs.android.contactapp.model.Contact
 import fr.dleurs.android.contactapp.ui.SectionsPagerAdapter
 import fr.dleurs.android.contactapp.utils.FabButtonInterface
@@ -57,10 +58,11 @@ class ContactActivity : AppCompatActivity(), FabButtonInterface {
 
         if (requestCode == createContactActivityRequestCode && resultCode == Activity.RESULT_OK) {
             Timber.i("Intent received")
-            //intentData?.getStringExtra(EXTRA_REPLY)?.let { reply ->
-            //    val todo = TodoRoom(reply)
+            intentData?.getParcelableExtra<ContactDatabase>("contact")?.let { reply ->
+                val newContact = ContactDatabase(firstName = reply.firstName,lastName = reply.lastName, mail = reply.mail)
+                Timber.i("Intent received + " + newContact.toString())
                 //todoViewModel.insert(todo)
-            //}
+            }
         } else {
             Toast.makeText(this, "Error", Toast.LENGTH_LONG).show()
         }

@@ -15,6 +15,8 @@
     <string name="new_contact_activity_mail_hint">E-mail</string>
 
     <string name="new_contact_activity_error_form_empty">"Field is required"</string>
+    <string name="new_contact_activity_error_form_valid_email">"This is not a valid email address"</string>
+    <string name="new_contact_activity_error_form_valid_name">"This is not a valid name"</string>
 
 
 
