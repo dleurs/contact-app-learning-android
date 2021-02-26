@@ -11,7 +11,7 @@ import fr.dleurs.android.contactapp.model.Contact
 import fr.dleurs.android.contactapp.ui.main.OnClick
 import timber.log.Timber
 
-class ContactAdapter() : RecyclerView.Adapter<ContactViewHolder>(), OnClick {
+class ContactAdapter(val onClick: OnClick) : RecyclerView.Adapter<ContactViewHolder>() {
 
     var contacts: List<Contact> = emptyList()
         set(value) {
@@ -38,14 +38,9 @@ class ContactAdapter() : RecyclerView.Adapter<ContactViewHolder>(), OnClick {
     override fun onBindViewHolder(holder: ContactViewHolder, position: Int) {
         holder.viewDataBinding.also {
             it.contact = contacts[position]
-            it.onClick = this
+            it.onClick = onClick
         }
     }
-
-    override fun onItemClick(contact: Contact) {
-        Timber.i("Item clicked !!!")
-    }
-
 }
 
 

@@ -16,7 +16,7 @@ import fr.dleurs.android.contactapp.utils.FabButtonInterface
 import fr.dleurs.android.contactapp.viewmodel.ContactViewModel
 import timber.log.Timber
 
-class ContactActivity : AppCompatActivity(), FabButtonInterface {
+class ContactActivity : AppCompatActivity(), FabButtonInterface, OnClick {
 
 
     private lateinit var viewModel: ContactViewModel
@@ -34,7 +34,8 @@ class ContactActivity : AppCompatActivity(), FabButtonInterface {
 
 
         setContentView(R.layout.contact_activity)
-        val sectionsPagerAdapter = SectionsPagerAdapter(this, supportFragmentManager)
+        val sectionsPagerAdapter =
+            SectionsPagerAdapter(context = this, fm = supportFragmentManager, onClick = this)
         val viewPager: ViewPager = findViewById(R.id.contentFragment)
         viewPager.adapter = sectionsPagerAdapter
         val tabs: TabLayout = findViewById(R.id.tabs)
@@ -60,16 +61,23 @@ class ContactActivity : AppCompatActivity(), FabButtonInterface {
         if (requestCode == createContactActivityRequestCode && resultCode == Activity.RESULT_OK) {
             Timber.i("Intent received")
             intentData?.getParcelableExtra<ContactDatabase>("contact")?.let { reply ->
-                val newContact = ContactDatabase(firstName = reply.firstName,lastName = reply.lastName, mail = reply.mail)
+                val newContact = ContactDatabase(
+                    firstName = reply.firstName,
+                    lastName = reply.lastName,
+                    mail = reply.mail
+                )
                 Timber.i("Intent received + " + newContact.toString())
                 viewModel.insertContact(newContact)
             }
         } else if (requestCode == createContactActivityRequestCode && resultCode == Activity.RESULT_CANCELED) {
 
-        }
-        else {
+        } else {
             Toast.makeText(this, "Error", Toast.LENGTH_LONG).show()
         }
+    }
+
+    override fun onItemClick(contact: Contact) {
+        Timber.i("On Item clicked" + contact.toString())
     }
 }
 
