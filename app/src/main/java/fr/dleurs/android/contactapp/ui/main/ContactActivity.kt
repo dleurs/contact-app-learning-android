@@ -50,9 +50,10 @@ class ContactActivity : AppCompatActivity(), FabButtonInterface, OnClick {
         startActivityForResult(intent, createContactActivityRequestCode)
     }
 
-    override fun goToDetailContactActivity() {
+    fun goToDetailContactActivity(contact: Contact) {
         Timber.i("Details contact started")
         val intent = Intent(this, DetailsContactActivity::class.java)
+        intent.putExtra("contact", contact)
         startActivityForResult(intent, detailContactActivityRequestCode)
     }
 
@@ -72,16 +73,16 @@ class ContactActivity : AppCompatActivity(), FabButtonInterface, OnClick {
             }
         } else if (requestCode == createContactActivityRequestCode && resultCode == Activity.RESULT_CANCELED) {
 
-        }  else if (requestCode == detailContactActivityRequestCode && resultCode == Activity.RESULT_CANCELED) {
+        } else if (requestCode == detailContactActivityRequestCode && resultCode == Activity.RESULT_CANCELED) {
 
         } else {
-            Toast.makeText(this, "Error", Toast.LENGTH_LONG).show()
+            Toast.makeText(this, "Error creating contact", Toast.LENGTH_LONG).show()
         }
     }
 
     override fun onItemClick(contact: Contact) {
         Timber.i("On Item clicked" + contact.toString())
-        goToDetailContactActivity()
+        goToDetailContactActivity(contact)
     }
 }
 

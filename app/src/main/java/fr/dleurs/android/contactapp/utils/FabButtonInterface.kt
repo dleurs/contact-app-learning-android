@@ -4,5 +4,4 @@ import fr.dleurs.android.contactapp.model.Contact
 
 interface FabButtonInterface {
     fun goToCreateContactActivity()
-    fun goToDetailContactActivity()
 }
