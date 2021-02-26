@@ -16,11 +16,22 @@ class ContactViewModel(application: Application) : AndroidViewModel(application)
 
     private val contactsRepository = ContactRepository(getDatabase(application))
     var liveContacts: LiveData<List<Contact>> = contactsRepository.contacts
+    private val _navigateToSelectedContact: MutableLiveData<Contact?> = MutableLiveData<Contact?>()
+    val navigateToSelectedContact: LiveData<Contact?>
+        get() = _navigateToSelectedContact
 
     public fun insertContact(contact: ContactDatabase) {
         viewModelScope.launch {
             contactsRepository.insertContact(contact);
         }
+    }
+
+    fun displayContactDetails(contact: Contact) {
+        _navigateToSelectedContact.value = contact;
+    }
+
+    fun displayContactDetailsComplete() {
+        _navigateToSelectedContact.value = null
     }
 
     /**

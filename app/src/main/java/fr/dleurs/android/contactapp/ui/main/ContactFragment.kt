@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -36,6 +37,15 @@ class ContactFragment() : Fragment(R.layout.fragment_contact) {
         viewModel.liveContacts.observe(viewLifecycleOwner, Observer<List<Contact>> { contacts -> // this or viewLifecycleOwner ?
             contacts?.let {
                 contactAdapter.contacts = it
+            }
+        })
+
+        viewModel.navigateToSelectedContact.observe(viewLifecycleOwner, Observer {
+            if ( null != it ) {
+                // Must find the NavController from the Fragment
+                //this.findNavController().navigate(OverviewFragmentDirections.actionShowDetail(it))
+                // Tell the ViewModel we've made the navigate call to prevent multiple navigation
+                viewModel.displayContactDetailsComplete()
             }
         })
     }

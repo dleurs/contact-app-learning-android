@@ -10,6 +10,7 @@ import androidx.viewpager.widget.ViewPager
 import com.google.android.material.tabs.TabLayout
 import fr.dleurs.android.contactapp.R
 import fr.dleurs.android.contactapp.database.ContactDatabase
+import fr.dleurs.android.contactapp.ui.detailsContact.DetailsContactActivity
 import fr.dleurs.android.contactapp.ui.newModifyContact.CreateModifyContactActivity
 import fr.dleurs.android.contactapp.utils.FabButtonInterface
 import fr.dleurs.android.contactapp.viewmodel.ContactViewModel
@@ -21,7 +22,7 @@ class ContactActivity : AppCompatActivity(), FabButtonInterface {
     private lateinit var viewModel: ContactViewModel
 
     private val createContactActivityRequestCode = 1
-    private val detailContactActivityRequestCode = 2
+    private val detailsContactActivityRequestCode = 2
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,9 +49,9 @@ class ContactActivity : AppCompatActivity(), FabButtonInterface {
     }
 
     override fun goToDetailContactActivity() {
-        Timber.i("Create a new contact started")
-        val intent = Intent(this, CreateModifyContactActivity::class.java)
-        startActivityForResult(intent, createContactActivityRequestCode)
+        Timber.i("Details on a contact started")
+        val intent = Intent(this, DetailsContactActivity::class.java)
+        startActivityForResult(intent, detailsContactActivityRequestCode)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, intentData: Intent?) {
