@@ -11,6 +11,7 @@ import com.google.android.material.tabs.TabLayout
 import fr.dleurs.android.contactapp.R
 import fr.dleurs.android.contactapp.database.ContactDatabase
 import fr.dleurs.android.contactapp.model.Contact
+import fr.dleurs.android.contactapp.ui.detailsContact.DetailsContactActivity
 import fr.dleurs.android.contactapp.ui.newModifyContact.CreateModifyContactActivity
 import fr.dleurs.android.contactapp.utils.FabButtonInterface
 import fr.dleurs.android.contactapp.viewmodel.ContactViewModel
@@ -50,9 +51,9 @@ class ContactActivity : AppCompatActivity(), FabButtonInterface, OnClick {
     }
 
     override fun goToDetailContactActivity() {
-        Timber.i("Create a new contact started")
-        val intent = Intent(this, CreateModifyContactActivity::class.java)
-        startActivityForResult(intent, createContactActivityRequestCode)
+        Timber.i("Details contact started")
+        val intent = Intent(this, DetailsContactActivity::class.java)
+        startActivityForResult(intent, detailContactActivityRequestCode)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, intentData: Intent?) {
@@ -71,6 +72,8 @@ class ContactActivity : AppCompatActivity(), FabButtonInterface, OnClick {
             }
         } else if (requestCode == createContactActivityRequestCode && resultCode == Activity.RESULT_CANCELED) {
 
+        }  else if (requestCode == detailContactActivityRequestCode && resultCode == Activity.RESULT_CANCELED) {
+
         } else {
             Toast.makeText(this, "Error", Toast.LENGTH_LONG).show()
         }
@@ -78,6 +81,7 @@ class ContactActivity : AppCompatActivity(), FabButtonInterface, OnClick {
 
     override fun onItemClick(contact: Contact) {
         Timber.i("On Item clicked" + contact.toString())
+        goToDetailContactActivity()
     }
 }
 
