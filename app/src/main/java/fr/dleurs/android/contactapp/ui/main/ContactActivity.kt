@@ -10,6 +10,7 @@ import androidx.viewpager.widget.ViewPager
 import com.google.android.material.tabs.TabLayout
 import fr.dleurs.android.contactapp.R
 import fr.dleurs.android.contactapp.database.ContactDatabase
+import fr.dleurs.android.contactapp.model.Contact
 import fr.dleurs.android.contactapp.ui.newModifyContact.CreateModifyContactActivity
 import fr.dleurs.android.contactapp.utils.FabButtonInterface
 import fr.dleurs.android.contactapp.viewmodel.ContactViewModel
@@ -51,6 +52,10 @@ class ContactActivity : AppCompatActivity(), FabButtonInterface {
         Timber.i("Create a new contact started")
         val intent = Intent(this, CreateModifyContactActivity::class.java)
         startActivityForResult(intent, createContactActivityRequestCode)
+    }
+
+    override fun onItemClicked(contact: Contact) {
+        Timber.i("Item clicked")
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, intentData: Intent?) {

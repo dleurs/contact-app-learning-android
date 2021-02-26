@@ -11,11 +11,7 @@ import fr.dleurs.android.contactapp.model.Contact
 
 class ContactAdapter() : RecyclerView.Adapter<ContactViewHolder>() {
 
-    /**
-     * The videos that our Adapter will show
-     */
     var contacts: List<Contact> = emptyList()
-        //var contacts: List<Contact> = listOf(Contact(firstName = "Dimitri", lastName = "Lele", id="12345", mail = "d@g.com"))
         set(value) {
             field = value
             // For an extra challenge, update this to use the paging library.

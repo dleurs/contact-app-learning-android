@@ -1,6 +1,9 @@
 package fr.dleurs.android.contactapp.utils
 
+import fr.dleurs.android.contactapp.model.Contact
+
 interface FabButtonInterface {
     fun goToCreateContactActivity()
     fun goToDetailContactActivity()
+    fun onItemClicked(contact: Contact)
 }
