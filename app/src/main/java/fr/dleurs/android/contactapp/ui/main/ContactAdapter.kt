@@ -8,8 +8,10 @@ import androidx.recyclerview.widget.RecyclerView
 import fr.dleurs.android.contactapp.R
 import fr.dleurs.android.contactapp.databinding.ContactItemBinding
 import fr.dleurs.android.contactapp.model.Contact
+import fr.dleurs.android.contactapp.ui.main.OnClick
+import timber.log.Timber
 
-class ContactAdapter() : RecyclerView.Adapter<ContactViewHolder>() {
+class ContactAdapter() : RecyclerView.Adapter<ContactViewHolder>(), OnClick {
 
     var contacts: List<Contact> = emptyList()
         set(value) {
@@ -36,7 +38,12 @@ class ContactAdapter() : RecyclerView.Adapter<ContactViewHolder>() {
     override fun onBindViewHolder(holder: ContactViewHolder, position: Int) {
         holder.viewDataBinding.also {
             it.contact = contacts[position]
+            it.onClick = this
         }
+    }
+
+    override fun onItemClick(contact: Contact) {
+        Timber.i("Item clicked !!!")
     }
 
 }

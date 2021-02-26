@@ -54,10 +54,6 @@ class ContactActivity : AppCompatActivity(), FabButtonInterface {
         startActivityForResult(intent, createContactActivityRequestCode)
     }
 
-    override fun onItemClicked(contact: Contact) {
-        Timber.i("Item clicked")
-    }
-
     override fun onActivityResult(requestCode: Int, resultCode: Int, intentData: Intent?) {
         super.onActivityResult(requestCode, resultCode, intentData)
 
