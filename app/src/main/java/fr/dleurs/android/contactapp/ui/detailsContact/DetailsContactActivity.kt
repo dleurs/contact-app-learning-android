@@ -10,6 +10,10 @@ import fr.dleurs.android.contactapp.R
 import fr.dleurs.android.contactapp.database.ContactDatabase
 import fr.dleurs.android.contactapp.databinding.DetailsContactActivityBinding
 import fr.dleurs.android.contactapp.model.Contact
+import fr.dleurs.android.contactapp.model.asDatabaseModel
+import fr.dleurs.android.contactapp.ui.main.createContactActivityRequestCode
+import fr.dleurs.android.contactapp.ui.main.detailContactActivityRequestCode
+import fr.dleurs.android.contactapp.ui.newModifyContact.CreateModifyContactActivity
 import timber.log.Timber
 
 class DetailsContactActivity : AppCompatActivity() {
@@ -47,6 +51,13 @@ class DetailsContactActivity : AppCompatActivity() {
             val deleteIntent = Intent()
             setResult(Activity.RESULT_OK, deleteIntent)
             finish()
+        }
+
+        val buttonEdit = findViewById<ImageButton>(R.id.ibEdit)
+        buttonEdit.setOnClickListener {
+            val editIntent = Intent(this, CreateModifyContactActivity::class.java)
+            editIntent.putExtra("contact", contactPassed)
+            startActivityForResult(editIntent, createContactActivityRequestCode)
         }
     }
 }

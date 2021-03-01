@@ -18,15 +18,15 @@ import fr.dleurs.android.contactapp.utils.FabButtonInterface
 import fr.dleurs.android.contactapp.viewmodel.ContactViewModel
 import timber.log.Timber
 
+public val createContactActivityRequestCode = 1
+public val detailContactActivityRequestCode = 2
+
+
 class ContactActivity : AppCompatActivity(), FabButtonInterface, OnClick {
 
 
     private lateinit var viewModel: ContactViewModel
     private var contactViewed: ContactDatabase? = null
-
-    private val createContactActivityRequestCode = 1
-    private val detailContactActivityRequestCode = 2
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -43,7 +43,6 @@ class ContactActivity : AppCompatActivity(), FabButtonInterface, OnClick {
         viewPager.adapter = sectionsPagerAdapter
         val tabs: TabLayout = findViewById(R.id.tabs)
         tabs.setupWithViewPager(viewPager)
-
     }
 
     override fun goToCreateContactActivity() {

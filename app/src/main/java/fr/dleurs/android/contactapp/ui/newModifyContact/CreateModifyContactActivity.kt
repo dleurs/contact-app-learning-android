@@ -11,11 +11,12 @@ import androidx.core.widget.doOnTextChanged
 import com.google.android.material.textfield.TextInputLayout
 import fr.dleurs.android.contactapp.R
 import fr.dleurs.android.contactapp.database.ContactDatabase
+import fr.dleurs.android.contactapp.model.Contact
 import timber.log.Timber
 import java.util.regex.Pattern
 
 
-class CreateModifyContactActivity : AppCompatActivity() {
+class CreateModifyContactActivity() : AppCompatActivity() {
 
     private lateinit var textInputLastName: TextInputLayout
     private lateinit var textInputFirstName: TextInputLayout
@@ -24,15 +25,19 @@ class CreateModifyContactActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-
         setContentView(R.layout.create_modify_contact_activity)
+
+        var modifyContact: Contact? = intent.getParcelableExtra<Contact>("contact")
+        Timber.i("Create Modify Contact, contact : " + modifyContact.toString() );
 
         val buttonSave = findViewById<Button>(R.id.button_save)
         val buttonBack = findViewById<ImageButton>(R.id.ibBack)
         textInputLastName = findViewById(R.id.tiLastName)
+        textInputLastName.getEditText()?.setText(modifyContact?.lastName)
         textInputFirstName = findViewById(R.id.tiFirstName)
+        textInputFirstName.getEditText()?.setText(modifyContact?.firstName)
         textInputMail = findViewById(R.id.tiMail)
+        textInputMail.getEditText()?.setText(modifyContact?.mail)
 
         buttonSave.setOnClickListener {
             if (validateInput()) {
