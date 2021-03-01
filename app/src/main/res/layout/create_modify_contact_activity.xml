@@ -75,7 +75,6 @@
         style="@style/Theme.TextInputLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tiFirstName">
@@ -85,6 +84,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/new_contact_activity_mail_hint"
+            android:drawableEnd="@drawable/ic_email"
             android:inputType="textEmailAddress"
             tools:layout_editor_absoluteX="8dp"
             tools:layout_editor_absoluteY="288dp">
