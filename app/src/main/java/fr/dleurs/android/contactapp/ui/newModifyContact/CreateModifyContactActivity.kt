@@ -63,6 +63,10 @@ class CreateModifyContactActivity() : AppCompatActivity() {
         textInputMail.editText?.doOnTextChanged{ inputText, _, _, _ ->
             textInputMail.setError(null)
         }
+
+        textInputMail.editText?.doOnTextChanged{ inputText, _, _, _ ->
+            textInputMail.setError(null)
+        }
         textInputLastName.editText?.doOnTextChanged{ inputText, _, _, _ ->
             textInputLastName.setError(null)
         }
