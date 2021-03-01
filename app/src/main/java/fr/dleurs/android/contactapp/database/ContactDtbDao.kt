@@ -24,6 +24,9 @@ interface ContactDtbDao {
 
     @Delete
     suspend fun delete(contact: ContactDatabase)
+
+    @Update
+    suspend fun update(contact: ContactDatabase)
 }
 
 @Database(entities = [ContactDatabase::class], version = 1)

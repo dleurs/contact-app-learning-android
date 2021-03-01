@@ -30,8 +30,12 @@ class CreateModifyContactActivity() : AppCompatActivity() {
         var modifyContact: Contact? = intent.getParcelableExtra<Contact>("contact")
         Timber.i("Create Modify Contact, contact : " + modifyContact.toString() );
 
+
+
         val buttonSave = findViewById<Button>(R.id.button_save)
         val buttonBack = findViewById<ImageButton>(R.id.ibBack)
+        var idContact: Int = 0
+        idContact = modifyContact?.id?.toInt() ?: 0
         textInputLastName = findViewById(R.id.tiLastName)
         textInputLastName.getEditText()?.setText(modifyContact?.lastName)
         textInputFirstName = findViewById(R.id.tiFirstName)
@@ -42,7 +46,7 @@ class CreateModifyContactActivity() : AppCompatActivity() {
         buttonSave.setOnClickListener {
             if (validateInput()) {
                 val replyIntent = Intent()
-                val contact: ContactDatabase = ContactDatabase(firstName = getFirstName(), lastName = getLastName(), mail = getEmail())
+                val contact: ContactDatabase = ContactDatabase(id= idContact, firstName = getFirstName(), lastName = getLastName(), mail = getEmail())
                 replyIntent.putExtra("contact", contact)
                 Timber.i("Intent send : " + contact.toString())
                 setResult(Activity.RESULT_OK, replyIntent)

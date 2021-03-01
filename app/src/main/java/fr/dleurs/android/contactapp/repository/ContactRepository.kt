@@ -38,4 +38,10 @@ class ContactRepository(private val database: ContactsDatabase) {
             database.contactDtbDao.delete(contact);
         }
     }
+
+    suspend fun updateContact(contact: ContactDatabase) {
+        withContext(Dispatchers.IO) {
+            database.contactDtbDao.update(contact);
+        }
+    }
 }

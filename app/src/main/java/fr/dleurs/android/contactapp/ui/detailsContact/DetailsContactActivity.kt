@@ -26,16 +26,14 @@ class DetailsContactActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
 
-
-        val intentData = intent.getParcelableExtra<Contact>("contact")?.let { reply ->
-            contactPassed = Contact(
-                id=reply.id,
-                firstName = reply.firstName,
-                lastName = reply.lastName,
-                mail = reply.mail
-            )
-            Timber.i("Intent received + " + contactPassed.toString())
-        }
+        val intentData = intent.getParcelableExtra<Contact>("contact")
+        contactPassed = Contact(
+            id = intentData!!.id,
+            firstName = intentData!!.firstName,
+            lastName = intentData!!.lastName,
+            mail = intentData!!.mail
+        )
+        Timber.i("Intent received + " + contactPassed.toString())
         binding = DataBindingUtil.setContentView(this, R.layout.details_contact_activity)
         binding.apply { contact = contactPassed }
 
@@ -49,6 +47,7 @@ class DetailsContactActivity : AppCompatActivity() {
         val buttonDelete = findViewById<ImageButton>(R.id.ibDelete)
         buttonDelete.setOnClickListener {
             val deleteIntent = Intent()
+            deleteIntent.putExtra("action", "delete")
             setResult(Activity.RESULT_OK, deleteIntent)
             finish()
         }
@@ -59,5 +58,25 @@ class DetailsContactActivity : AppCompatActivity() {
             editIntent.putExtra("contact", contactPassed)
             startActivityForResult(editIntent, createContactActivityRequestCode)
         }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, intentData: Intent?) {
+
+        if (requestCode == createContactActivityRequestCode && resultCode == Activity.RESULT_OK ) {
+            val modifiedIntent = Intent()
+            val modifiedContact = intentData?.getParcelableExtra<ContactDatabase>("contact")
+            Timber.i("modifiedContact : " + modifiedContact.toString())
+            val contact: Contact = Contact(
+                id = modifiedContact!!.id.toString(),
+                firstName = modifiedContact!!.firstName,
+                lastName = modifiedContact!!.lastName,
+                mail = modifiedContact!!.mail
+            )
+            modifiedIntent.putExtra("action", "modify")
+            modifiedIntent.putExtra("contact", contact)
+            setResult(Activity.RESULT_OK, modifiedIntent)
+            finish()
+        }
+        super.onActivityResult(requestCode, resultCode, intentData)
     }
 }

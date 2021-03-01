@@ -64,25 +64,40 @@ class ContactActivity : AppCompatActivity(), FabButtonInterface, OnClick {
 
         if (requestCode == createContactActivityRequestCode && resultCode == Activity.RESULT_OK) {
             Timber.i("Intent received")
-            intentData?.getParcelableExtra<ContactDatabase>("contact")?.let { reply ->
-                val newContact = ContactDatabase(
-                    firstName = reply.firstName,
-                    lastName = reply.lastName,
-                    mail = reply.mail
-                )
-                Timber.i("Intent received + " + newContact.toString())
-                viewModel.insertContact(newContact)
-            }
+            val response = intentData?.getParcelableExtra<ContactDatabase>("contact")
+            val newContact = ContactDatabase(
+                firstName = response!!.firstName,
+                lastName = response!!.lastName,
+                mail = response!!.mail
+            )
+            Timber.i("Intent received + " + newContact.toString())
+            viewModel.insertContact(newContact)
+
         } else if (requestCode == createContactActivityRequestCode && resultCode == Activity.RESULT_CANCELED) {
 
         } else if (requestCode == detailContactActivityRequestCode) {
-            Timber.i("DetailsContactActivity intent :" + intent.toString() + "resultCode :" + resultCode.toString())
+            Timber.i("DetailsContactActivity intent :" + intent.toString() + ", intentData: "+intentData.toString()+"resultCode :" + resultCode.toString())
             if (resultCode == Activity.RESULT_CANCELED) {
                 Timber.i("DetailsContactActivity closed with no action")
             } else if (resultCode == Activity.RESULT_OK) {
-                Timber.i("DetailsContactActivity closed and deleting contact " + contactViewed.toString())
-                viewModel.deleteContact(contactViewed!!)
-                contactViewed = null
+                val action: String = intentData?.getStringExtra("action") ?: ""
+                if (action == "delete") {
+                    Timber.i("DetailsContactActivity closed and deleting contact " + contactViewed.toString())
+                    viewModel.deleteContact(contactViewed!!)
+                    contactViewed = null
+                }
+                else if (action == "modify") {
+                    val response = intentData?.getParcelableExtra<Contact>("contact")
+                    val modifyContact = Contact(
+                        id = response!!.id,
+                        firstName = response!!.firstName,
+                        lastName = response!!.lastName,
+                        mail = response!!.mail
+                    )
+                    Timber.i("DetailsContactActivity closed and modifing contact " + modifyContact.toString())
+                    viewModel.updateContact(contactViewed!!)
+
+                }
             }
 
         } else {
