@@ -1,6 +1,9 @@
 package fr.dleurs.android.contactapp.ui.detailsContact
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
+import android.widget.ImageButton
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import fr.dleurs.android.contactapp.R
@@ -18,6 +21,8 @@ class DetailsContactActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+
+
         val intentData = intent.getParcelableExtra<Contact>("contact")?.let { reply ->
             contactPassed = Contact(
                 id=reply.id,
@@ -29,5 +34,12 @@ class DetailsContactActivity : AppCompatActivity() {
         }
         binding = DataBindingUtil.setContentView(this, R.layout.details_contact_activity)
         binding.apply { contact = contactPassed }
+
+        val buttonBack = findViewById<ImageButton>(R.id.ibBack)
+        buttonBack.setOnClickListener {
+            val replyIntent = Intent()
+            setResult(Activity.RESULT_CANCELED, replyIntent)
+            finish()
+        }
     }
 }
