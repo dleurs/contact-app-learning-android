@@ -96,7 +96,7 @@ class ContactActivity : AppCompatActivity(), FabButtonInterface, OnClick {
                     )
                     Timber.i("DetailsContactActivity closed and modifing contact " + modifyContact.toString())
                     viewModel.updateContact(modifyContact.asDatabaseModel())
-
+                    goToDetailContactActivity(modifyContact)
                 }
             }
 
