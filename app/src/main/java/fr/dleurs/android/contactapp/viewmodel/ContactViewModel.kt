@@ -23,6 +23,12 @@ class ContactViewModel(application: Application) : AndroidViewModel(application)
         }
     }
 
+    public fun deleteContact(contact: ContactDatabase) {
+        viewModelScope.launch {
+            contactsRepository.deleteContact(contact);
+        }
+    }
+
     /**
      * Event triggered for network error. This is private to avoid exposing a
      * way to set this value to observers.

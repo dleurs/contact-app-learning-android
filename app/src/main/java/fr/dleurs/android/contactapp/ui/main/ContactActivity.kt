@@ -11,6 +11,7 @@ import com.google.android.material.tabs.TabLayout
 import fr.dleurs.android.contactapp.R
 import fr.dleurs.android.contactapp.database.ContactDatabase
 import fr.dleurs.android.contactapp.model.Contact
+import fr.dleurs.android.contactapp.model.asDatabaseModel
 import fr.dleurs.android.contactapp.ui.detailsContact.DetailsContactActivity
 import fr.dleurs.android.contactapp.ui.newModifyContact.CreateModifyContactActivity
 import fr.dleurs.android.contactapp.utils.FabButtonInterface
@@ -21,6 +22,7 @@ class ContactActivity : AppCompatActivity(), FabButtonInterface, OnClick {
 
 
     private lateinit var viewModel: ContactViewModel
+    private var contactViewed: ContactDatabase? = null
 
     private val createContactActivityRequestCode = 1
     private val detailContactActivityRequestCode = 2
@@ -54,6 +56,7 @@ class ContactActivity : AppCompatActivity(), FabButtonInterface, OnClick {
         Timber.i("Details contact started")
         val intent = Intent(this, DetailsContactActivity::class.java)
         intent.putExtra("contact", contact)
+        contactViewed = contact.asDatabaseModel()
         startActivityForResult(intent, detailContactActivityRequestCode)
     }
 
@@ -73,7 +76,15 @@ class ContactActivity : AppCompatActivity(), FabButtonInterface, OnClick {
             }
         } else if (requestCode == createContactActivityRequestCode && resultCode == Activity.RESULT_CANCELED) {
 
-        } else if (requestCode == detailContactActivityRequestCode && resultCode == Activity.RESULT_CANCELED) {
+        } else if (requestCode == detailContactActivityRequestCode) {
+            Timber.i("DetailsContactActivity intent :" + intent.toString() + "resultCode :" + resultCode.toString())
+            if (resultCode == Activity.RESULT_CANCELED) {
+                Timber.i("DetailsContactActivity closed with no action")
+            } else if (resultCode == Activity.RESULT_OK) {
+                Timber.i("DetailsContactActivity closed and deleting contact " + contactViewed.toString())
+                viewModel.deleteContact(contactViewed!!)
+                contactViewed = null
+            }
 
         } else {
             Toast.makeText(this, "Error creating contact", Toast.LENGTH_LONG).show()

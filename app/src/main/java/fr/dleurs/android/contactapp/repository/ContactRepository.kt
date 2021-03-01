@@ -33,4 +33,9 @@ class ContactRepository(private val database: ContactsDatabase) {
         }
     }
 
+    suspend fun deleteContact(contact: ContactDatabase) {
+        withContext(Dispatchers.IO) {
+            database.contactDtbDao.delete(contact);
+        }
+    }
 }

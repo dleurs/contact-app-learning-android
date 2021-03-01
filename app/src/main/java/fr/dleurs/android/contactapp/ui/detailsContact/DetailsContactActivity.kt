@@ -41,5 +41,12 @@ class DetailsContactActivity : AppCompatActivity() {
             setResult(Activity.RESULT_CANCELED, replyIntent)
             finish()
         }
+
+        val buttonDelete = findViewById<ImageButton>(R.id.ibDelete)
+        buttonDelete.setOnClickListener {
+            val deleteIntent = Intent()
+            setResult(Activity.RESULT_OK, deleteIntent)
+            finish()
+        }
     }
 }
