@@ -27,6 +27,9 @@ interface ContactDtbDao {
 
     @Update
     suspend fun update(contact: ContactDatabase)
+
+    @Query("UPDATE contact_table SET firstName = :firstName  & lastName = :lastname & mail = :mail WHERE id = :contactId ")
+    suspend fun customUpdate(contactId: Int, firstName: String, lastname: String, mail: String)
 }
 
 @Database(entities = [ContactDatabase::class], version = 1)
