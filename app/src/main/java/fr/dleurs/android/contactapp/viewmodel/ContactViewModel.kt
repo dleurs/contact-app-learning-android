@@ -9,7 +9,7 @@ import fr.dleurs.android.contactapp.repository.ContactRepository
 import kotlinx.coroutines.launch
 
 class ContactViewModel(application: Application) : AndroidViewModel(application) {
-    private val contactsRepository = ContactRepository(getDatabase(application))
+    private val contactsRepository = ContactRepository(getDatabase(application).contactDtbDao)
     fun liveContact(contactId: String): LiveData<Contact> = contactsRepository.contact(contactId)
 
     public fun updateContact(contact: ContactDatabase) {

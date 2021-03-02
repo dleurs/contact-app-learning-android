@@ -14,7 +14,7 @@ class ContactsViewModel(application: Application) : AndroidViewModel(application
 
     //private val contactsRepository = ContactRepository(ContactsDatabase.getDatabase(application))
 
-    private val contactsRepository = ContactRepository(getDatabase(application))
+    private val contactsRepository = ContactRepository(getDatabase(application).contactDtbDao)
     var liveContacts: LiveData<List<Contact>> = contactsRepository.contacts
 
     public fun insertContact(contact: ContactDatabase) {

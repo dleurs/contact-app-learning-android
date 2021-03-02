@@ -11,15 +11,15 @@ import timber.log.Timber
 import fr.dleurs.android.contactapp.network.asDatabaseModel
 import java.util.logging.Level.INFO
 
-class ContactRepository(private val database: ContactsDatabase) {
+class ContactRepository(private val contactDtbDao: ContactDtbDao) {
 
     val contacts: LiveData<List<Contact>> =
-        Transformations.map(database.contactDtbDao.getContacts()) {
+        Transformations.map(contactDtbDao.getContacts()) {
             it.asDomainModel()
         }
 
     fun contact(contactId: String): LiveData<Contact> =
-        Transformations.map(database.contactDtbDao.getContact(contactId)) { it.asDomailModel() }
+        Transformations.map(contactDtbDao.getContact(contactId)) { it.asDomailModel() }
 
 
     suspend fun refreshContacts() {
@@ -27,25 +27,25 @@ class ContactRepository(private val database: ContactsDatabase) {
             Log.i("ContactRepo", "Refresh contacts is called");
             val contactList = ContactRetrofitApi.contacts.getContacts()
             Log.i("ContactRepo", "ContactList created ${contactList.toString()}");
-            database.contactDtbDao.insertAll(contactList.asDatabaseModel())
+            contactDtbDao.insertAll(contactList.asDatabaseModel())
         }
     }
 
     suspend fun insertContact(contact: ContactDatabase) {
         withContext(Dispatchers.IO) {
-            database.contactDtbDao.insert(contact);
+            contactDtbDao.insert(contact);
         }
     }
 
     suspend fun deleteContact(contactId: String) {
         withContext(Dispatchers.IO) {
-            database.contactDtbDao.delete(contactId);
+            contactDtbDao.delete(contactId);
         }
     }
 
     suspend fun updateContact(contact: ContactDatabase) {
         withContext(Dispatchers.IO) {
-            database.contactDtbDao.update(contact);
+            contactDtbDao.update(contact);
         }
     }
 }
