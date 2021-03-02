@@ -54,7 +54,7 @@ class ContactActivity : AppCompatActivity(), FabButtonInterface, OnClick {
         Timber.i("Details contact started")
         val intent = Intent(this, DetailsContactActivity::class.java)
         intent.putExtra("contactId", contactId)
-        startActivityForResult(intent, detailContactActivityRequestCode)
+        startActivity(intent)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, intentData: Intent?) {

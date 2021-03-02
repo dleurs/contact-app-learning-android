@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import fr.dleurs.android.contactapp.R
 import fr.dleurs.android.contactapp.database.ContactDatabase
 import fr.dleurs.android.contactapp.databinding.DetailsContactActivityBinding
