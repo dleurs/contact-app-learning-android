@@ -29,3 +29,12 @@ fun List<ContactDatabase>.asDomainModel(): List<Contact> {
         )
     }
 }
+
+fun ContactDatabase.asDomailModel(): Contact {
+    return Contact(
+        id = this.id.toString(),
+        firstName = this.firstName,
+        lastName = this.lastName,
+        mail = this.mail,
+    )
+}

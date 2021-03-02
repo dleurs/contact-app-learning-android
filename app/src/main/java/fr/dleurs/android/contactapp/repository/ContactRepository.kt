@@ -18,6 +18,10 @@ class ContactRepository(private val database: ContactsDatabase) {
             it.asDomainModel()
         }
 
+    fun contact(contactId: String): LiveData<Contact> =
+        Transformations.map(database.contactDtbDao.getContact(contactId)) { it.asDomailModel() }
+
+
     suspend fun refreshContacts() {
         withContext(Dispatchers.IO) {
             Log.i("ContactRepo", "Refresh contacts is called");

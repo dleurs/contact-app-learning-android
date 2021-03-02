@@ -15,7 +15,7 @@ import fr.dleurs.android.contactapp.model.asDatabaseModel
 import fr.dleurs.android.contactapp.ui.detailsContact.DetailsContactActivity
 import fr.dleurs.android.contactapp.ui.newModifyContact.CreateModifyContactActivity
 import fr.dleurs.android.contactapp.utils.FabButtonInterface
-import fr.dleurs.android.contactapp.viewmodel.ContactViewModel
+import fr.dleurs.android.contactapp.viewmodel.ContactsViewModel
 import timber.log.Timber
 
 public val createContactActivityRequestCode = 1
@@ -25,15 +25,15 @@ public val detailContactActivityRequestCode = 2
 class ContactActivity : AppCompatActivity(), FabButtonInterface, OnClick {
 
 
-    private lateinit var viewModel: ContactViewModel
+    private lateinit var viewModel: ContactsViewModel
     private var contactViewed: ContactDatabase? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         viewModel = ViewModelProvider(
             this,
-            ContactViewModel.Factory(this.application)
-        ).get(ContactViewModel::class.java)
+            ContactsViewModel.Factory(this.application)
+        ).get(ContactsViewModel::class.java)
 
 
         setContentView(R.layout.contact_activity)

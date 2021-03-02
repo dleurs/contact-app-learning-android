@@ -13,6 +13,9 @@ interface ContactDtbDao {
     @Query("select * from contact_table")
     fun getContacts(): LiveData<List<ContactDatabase>>
 
+    @Query("select * from contact_table WHERE id = :contactId")
+    fun getContact(contactId: String): LiveData<ContactDatabase>
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAll(contacts: List<ContactDatabase>)
 

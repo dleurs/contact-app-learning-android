@@ -19,5 +19,4 @@ fun Contact.asDatabaseModel(): ContactDatabase {
         lastName = this.lastName,
         mail = this.mail,
     )
-
 }

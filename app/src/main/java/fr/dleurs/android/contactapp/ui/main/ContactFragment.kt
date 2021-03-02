@@ -19,7 +19,7 @@ import fr.dleurs.android.contactapp.databinding.FragmentContactBinding
 import fr.dleurs.android.contactapp.model.Contact
 import fr.dleurs.android.contactapp.ui.ContactAdapter
 import fr.dleurs.android.contactapp.utils.FabButtonInterface
-import fr.dleurs.android.contactapp.viewmodel.ContactViewModel
+import fr.dleurs.android.contactapp.viewmodel.ContactsViewModel
 
 const val EXTRA_CONTACT = "fr.dleurs.android.contactapp.CONTACT"
 
@@ -27,7 +27,7 @@ class ContactFragment(val onClick: OnClick) : Fragment(R.layout.fragment_contact
 
 
     private val contactAdapter: ContactAdapter = ContactAdapter(onClick)
-    private val viewModel: ContactViewModel by activityViewModels()
+    private val viewModel: ContactsViewModel by activityViewModels()
     private lateinit var fabButtonInterface: FabButtonInterface
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
