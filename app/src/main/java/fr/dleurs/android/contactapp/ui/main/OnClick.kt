@@ -3,5 +3,5 @@ package fr.dleurs.android.contactapp.ui.main
 import fr.dleurs.android.contactapp.model.Contact
 
 interface OnClick {
-    fun onItemClick(contact: Contact)
+    fun onItemClick(contactId: String)
 }

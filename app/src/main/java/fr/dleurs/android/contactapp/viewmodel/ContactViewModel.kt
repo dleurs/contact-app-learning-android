@@ -8,9 +8,9 @@ import fr.dleurs.android.contactapp.model.Contact
 import fr.dleurs.android.contactapp.repository.ContactRepository
 import kotlinx.coroutines.launch
 
-class ContactViewModel(application: Application, contactId: String) : AndroidViewModel(application) {
+class ContactViewModel(application: Application) : AndroidViewModel(application) {
     private val contactsRepository = ContactRepository(getDatabase(application))
-    var liveContact: LiveData<Contact> = contactsRepository.contact(contactId)
+    fun liveContact(contactId: String): LiveData<Contact> = contactsRepository.contact(contactId)
 
     public fun updateContact(contact: ContactDatabase) {
         viewModelScope.launch {
@@ -18,11 +18,17 @@ class ContactViewModel(application: Application, contactId: String) : AndroidVie
         }
     }
 
-    class Factory(val app: Application, val contactId: String) : ViewModelProvider.Factory {
+    public fun deleteContact(contactId: String) {
+        viewModelScope.launch {
+            contactsRepository.deleteContact(contactId);
+        }
+    }
+
+    class Factory(val app: Application) : ViewModelProvider.Factory {
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {
             if (modelClass.isAssignableFrom(ContactsViewModel::class.java)) {
                 @Suppress("UNCHECKED_CAST")
-                return ContactViewModel(app, contactId) as T
+                return ContactViewModel(app) as T
             }
             throw IllegalArgumentException("Unable to construct viewmodel")
         }

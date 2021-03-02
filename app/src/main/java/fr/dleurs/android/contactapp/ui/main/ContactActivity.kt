@@ -26,7 +26,6 @@ class ContactActivity : AppCompatActivity(), FabButtonInterface, OnClick {
 
 
     private lateinit var viewModel: ContactsViewModel
-    private var contactViewed: ContactDatabase? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -51,11 +50,10 @@ class ContactActivity : AppCompatActivity(), FabButtonInterface, OnClick {
         startActivityForResult(intent, createContactActivityRequestCode)
     }
 
-    fun goToDetailContactActivity(contact: Contact) {
+    fun goToDetailContactActivity(contactId: String) {
         Timber.i("Details contact started")
         val intent = Intent(this, DetailsContactActivity::class.java)
-        intent.putExtra("contact", contact)
-        contactViewed = contact.asDatabaseModel()
+        intent.putExtra("contactId", contactId)
         startActivityForResult(intent, detailContactActivityRequestCode)
     }
 
@@ -79,25 +77,6 @@ class ContactActivity : AppCompatActivity(), FabButtonInterface, OnClick {
             Timber.i("DetailsContactActivity intent :" + intent.toString() + ", intentData: "+intentData.toString()+"resultCode :" + resultCode.toString())
             if (resultCode == Activity.RESULT_CANCELED) {
                 Timber.i("DetailsContactActivity closed with no action")
-            } else if (resultCode == Activity.RESULT_OK) {
-                val action: String = intentData?.getStringExtra("action") ?: ""
-                if (action == "delete") {
-                    Timber.i("DetailsContactActivity closed and deleting contact " + contactViewed.toString())
-                    viewModel.deleteContact(contactViewed!!)
-                    contactViewed = null
-                }
-                else if (action == "modify") {
-                    val response = intentData?.getParcelableExtra<Contact>("contact")
-                    val modifyContact = Contact(
-                        id = response!!.id,
-                        firstName = response!!.firstName,
-                        lastName = response!!.lastName,
-                        mail = response!!.mail
-                    )
-                    Timber.i("DetailsContactActivity closed and modifing contact " + modifyContact.toString())
-                    viewModel.updateContact(modifyContact.asDatabaseModel())
-                    goToDetailContactActivity(modifyContact)
-                }
             }
 
         } else {
@@ -105,9 +84,9 @@ class ContactActivity : AppCompatActivity(), FabButtonInterface, OnClick {
         }
     }
 
-    override fun onItemClick(contact: Contact) {
-        Timber.i("On Item clicked" + contact.toString())
-        goToDetailContactActivity(contact)
+    override fun onItemClick(contactId: String) {
+        Timber.i("On Item clicked + " + contactId)
+        goToDetailContactActivity(contactId)
     }
 }
 

@@ -6,6 +6,8 @@ import android.os.Bundle
 import android.widget.ImageButton
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import fr.dleurs.android.contactapp.R
 import fr.dleurs.android.contactapp.database.ContactDatabase
 import fr.dleurs.android.contactapp.databinding.DetailsContactActivityBinding
@@ -14,50 +16,58 @@ import fr.dleurs.android.contactapp.model.asDatabaseModel
 import fr.dleurs.android.contactapp.ui.main.createContactActivityRequestCode
 import fr.dleurs.android.contactapp.ui.main.detailContactActivityRequestCode
 import fr.dleurs.android.contactapp.ui.newModifyContact.CreateModifyContactActivity
+import fr.dleurs.android.contactapp.viewmodel.ContactViewModel
+import fr.dleurs.android.contactapp.viewmodel.ContactsViewModel
 import timber.log.Timber
 
 class DetailsContactActivity : AppCompatActivity() {
 
     private lateinit var binding: DetailsContactActivityBinding
-    private lateinit var contactPassed: Contact
+    private lateinit var contactId: String
+    private lateinit var viewModel: ContactViewModel
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        contactId = intent?.getStringExtra("contactId") ?: ""
+        assert(!contactId.isNullOrEmpty())
 
-        val intentData = intent.getParcelableExtra<Contact>("contact")
-        contactPassed = Contact(
-            id = intentData!!.id,
-            firstName = intentData!!.firstName,
-            lastName = intentData!!.lastName,
-            mail = intentData!!.mail
-        )
-        Timber.i("Intent received + " + contactPassed.toString())
-        binding = DataBindingUtil.setContentView(this, R.layout.details_contact_activity)
-        binding.apply { contact = contactPassed }
+        viewModel = ViewModelProvider(
+            this,
+            ContactViewModel.Factory(this.application)
+        ).get(ContactViewModel::class.java)
 
+        val buttonEdit = findViewById<ImageButton>(R.id.ibEdit)
+        val buttonDelete = findViewById<ImageButton>(R.id.ibDelete)
         val buttonBack = findViewById<ImageButton>(R.id.ibBack)
+
+        binding = DataBindingUtil.setContentView(this, R.layout.details_contact_activity)
+        viewModel.liveContact(contactId).observe(this, Observer<Contact> { theContact -> // this or viewLifecycleOwner ?
+            theContact?.let {
+                binding.apply { contact = it }
+            }
+        })
+
+        buttonEdit.setOnClickListener {
+            val editIntent = Intent(this, CreateModifyContactActivity::class.java)
+            //editIntent.putExtra("contact", it)
+            startActivityForResult(editIntent, createContactActivityRequestCode)
+        }
+
+        buttonDelete.setOnClickListener {
+            viewModel.deleteContact(contactId)
+            finish()
+        }
+
+
         buttonBack.setOnClickListener {
             val replyIntent = Intent()
             setResult(Activity.RESULT_CANCELED, replyIntent)
             finish()
         }
 
-        val buttonDelete = findViewById<ImageButton>(R.id.ibDelete)
-        buttonDelete.setOnClickListener {
-            val deleteIntent = Intent()
-            deleteIntent.putExtra("action", "delete")
-            setResult(Activity.RESULT_OK, deleteIntent)
-            finish()
-        }
 
-        val buttonEdit = findViewById<ImageButton>(R.id.ibEdit)
-        buttonEdit.setOnClickListener {
-            val editIntent = Intent(this, CreateModifyContactActivity::class.java)
-            editIntent.putExtra("contact", contactPassed)
-            startActivityForResult(editIntent, createContactActivityRequestCode)
-        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, intentData: Intent?) {

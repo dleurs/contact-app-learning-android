@@ -25,8 +25,8 @@ interface ContactDtbDao {
     @Query("DELETE FROM contact_table")
     suspend fun deleteAll()
 
-    @Delete
-    suspend fun delete(contact: ContactDatabase)
+    @Query("DELETE FROM contact_table WHERE id = :contactId")
+    suspend fun delete(contactId: String)
 
     @Update
     suspend fun update(contact: ContactDatabase)

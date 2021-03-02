@@ -23,18 +23,6 @@ class ContactsViewModel(application: Application) : AndroidViewModel(application
         }
     }
 
-    public fun deleteContact(contact: ContactDatabase) {
-        viewModelScope.launch {
-            contactsRepository.deleteContact(contact);
-        }
-    }
-
-    public fun updateContact(contact: ContactDatabase) {
-        viewModelScope.launch {
-            contactsRepository.updateContact(contact);
-        }
-    }
-
 
     /**
      * Event triggered for network error. This is private to avoid exposing a
