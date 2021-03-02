@@ -37,22 +37,26 @@ interface ContactDtbDao {
 
 @Database(entities = [ContactDatabase::class], version = 1)
 abstract class ContactsDatabase : RoomDatabase() {
-    abstract val contactDtbDao: ContactDtbDao
-}
+    abstract fun contactDtbDao(): ContactDtbDao
 
-private lateinit var INSTANCE: ContactsDatabase
+    companion object {
 
-fun getDatabase(context: Context): ContactsDatabase {
-    synchronized(ContactsDatabase::class.java) {
-        if (!::INSTANCE.isInitialized) {
-            INSTANCE = Room.databaseBuilder(
-                context.applicationContext,
-                ContactsDatabase::class.java,
-                "contacts"
-            ).build()
-        }
+
+        @Volatile
+        private var INSTANCE: ContactsDatabase? = null
+        private lateinit var mContext: Context
+
+        fun getInstance(context: Context): ContactsDatabase =
+            INSTANCE ?: synchronized(this) {
+                mContext = context
+                INSTANCE ?: buildDatabase(context).also { INSTANCE = it }
+            }
+
+        private fun buildDatabase(context: Context) =
+            Room.databaseBuilder(context.applicationContext,
+                ContactsDatabase::class.java, "contacts")
+                .build()
     }
-    return INSTANCE
 }
 
 

@@ -4,7 +4,7 @@ import android.app.Application
 import android.util.Log
 import androidx.lifecycle.*
 import fr.dleurs.android.contactapp.database.ContactDatabase
-import fr.dleurs.android.contactapp.database.getDatabase
+import fr.dleurs.android.contactapp.database.ContactsDatabase
 import fr.dleurs.android.contactapp.model.Contact
 import fr.dleurs.android.contactapp.repository.ContactRepository
 import kotlinx.coroutines.launch
@@ -14,7 +14,7 @@ class ContactsViewModel(application: Application) : AndroidViewModel(application
 
     //private val contactsRepository = ContactRepository(ContactsDatabase.getDatabase(application))
 
-    private val contactsRepository = ContactRepository(getDatabase(application).contactDtbDao)
+    private val contactsRepository = ContactRepository(ContactsDatabase.getInstance(application).contactDtbDao())
     var liveContacts: LiveData<List<Contact>> = contactsRepository.contacts
 
     public fun insertContact(contact: ContactDatabase) {
