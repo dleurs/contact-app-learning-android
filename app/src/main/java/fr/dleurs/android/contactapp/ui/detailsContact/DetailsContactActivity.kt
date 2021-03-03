@@ -27,9 +27,9 @@ class DetailsContactActivity : AppCompatActivity() {
     private lateinit var contactId: String
     private lateinit var viewModel: ContactViewModel
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        binding = DataBindingUtil.setContentView(this, R.layout.details_contact_activity)
 
         contactId = intent?.getStringExtra("contactId") ?: ""
         assert(!contactId.isNullOrEmpty())
@@ -43,7 +43,6 @@ class DetailsContactActivity : AppCompatActivity() {
         val buttonDelete = findViewById<ImageButton>(R.id.ibDelete)
         val buttonBack = findViewById<ImageButton>(R.id.ibBack)
 
-        binding = DataBindingUtil.setContentView(this, R.layout.details_contact_activity)
         viewModel.liveContact(contactId).observe(this, Observer<Contact> { theContact -> // this or viewLifecycleOwner ?
             theContact?.let {
                 binding.apply { contact = it }
