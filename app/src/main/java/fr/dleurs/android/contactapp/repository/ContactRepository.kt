@@ -15,11 +15,11 @@ class ContactRepository(private val contactDtbDao: ContactDtbDao) {
 
     val contacts: LiveData<List<Contact>> =
         Transformations.map(contactDtbDao.getContacts()) {
-            it.asDomainModel()
+            it?.asDomainModel()
         }
 
     fun contact(contactId: String): LiveData<Contact> =
-        Transformations.map(contactDtbDao.getContact(contactId)) { it.asDomailModel() }
+        Transformations.map(contactDtbDao.getContact(contactId)) { it?.asDomailModel() }
 
 
     suspend fun refreshContacts() {

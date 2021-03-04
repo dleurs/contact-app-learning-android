@@ -7,6 +7,10 @@
     <data>
 
         <variable
+            name="onClickDetailsScreen"
+            type="fr.dleurs.android.contactapp.utils.OnClickDetailsScreen" />
+
+        <variable
             name="contact"
             type="fr.dleurs.android.contactapp.model.Contact" />
     </data>
@@ -25,7 +29,9 @@
             android:background="@android:color/transparent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_keyboard_backspace_24px" />
+            app:srcCompat="@drawable/ic_keyboard_backspace_24px"
+            android:onClick="@{() -> onClickDetailsScreen.goBack()}"
+            />
 
         <ImageButton
             android:id="@+id/ibEdit"
@@ -38,7 +44,9 @@
             app:layout_constraintCircleRadius="20dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_edit" />
+            app:srcCompat="@drawable/ic_edit"
+            android:onClick="@{() -> onClickDetailsScreen.goToEditContact(contact)}"
+            />
 
         <ImageButton
             android:id="@+id/ibDelete"
@@ -50,7 +58,8 @@
             android:tint="@color/white"
             app:layout_constraintEnd_toStartOf="@+id/ibEdit"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_delete" />
+            app:srcCompat="@drawable/ic_delete"
+            android:onClick="@{() -> onClickDetailsScreen.goDelete(contact.id)}"/>
 
         <ImageView
             android:id="@+id/ivProfile"
